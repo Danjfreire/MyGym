@@ -4,11 +4,11 @@ CREATE SCHEMA MYGYM;
 # Definição de tabelas
 
 CREATE TABLE matriz (
-cnpj_matriz varchar(14) not null,
+cnpj varchar(14) not null,
 razao_social varchar(255) not null,
 endereco varchar(255) not null,
 telefone varchar(11) not null,
-unique(cnpj_matriz),
+unique(cnpj),
 primary key(cnpj)
 );
 
@@ -19,11 +19,11 @@ telefone varchar(11) not null,
 cnpj_matriz varchar(14) not null,
 unique(cnpj_filial),
 primary key(cnpj_filial,cnpj_matriz),
-foreign key(cnpj_matriz) references matriz(cnpj_matriz)
+foreign key(cnpj_matriz) references matriz(cnpj)
 );
 
 CREATE TABLE equipamento(
-cod_equip int not null auto_increment,
+codigo_equip int not null auto_increment,
 tipo_equip varchar(100),
 descricao varchar(255),
 cnpj_filial varchar(14) not null,
@@ -46,9 +46,8 @@ cod_equip int not null,
 cod_manutencao int not null,
 data_manutencao date,
 primary key (cod_equip, cod_manutencao, data_manutencao),
-foreign key (cod_equip) references equipamento(cod_equip),
-foreign key (cod_manutencao) references manutencao(cod_manutencao),
-foreign key (data_manutencao) references manutencao(data_manutencao)
+foreign key (cod_equip) references equipamento(codigo_equip),
+foreign key (cod_manutencao) references manutencao(cod_manutencao)
 );
 
 CREATE TABLE funcionario(
@@ -106,7 +105,7 @@ foreign key(cpf) references funcionario(cpf)
 
 CREATE TABLE vendedor(
 cpf varchar(11) not null,
-taxa_comissao decimal(1,2),
+taxa_comissao decimal(2,2),
 primary key(cpf),
 foreign key(cpf) references funcionario(cpf)
 );
@@ -123,7 +122,7 @@ CREATE TABLE instrutor(
 cpf varchar(11) not null,
 licenca varchar(20),
 primary key(cpf),
-foreign key(cpf) references funcionario(cpf),
+foreign key(cpf) references funcionario(cpf)
 );
 
 CREATE TABLE especialidade(
@@ -174,7 +173,7 @@ vigente boolean not null,
 duracao int,
 cpf_aluno varchar(11) not null,
 primary key (codigo),
-foreign key (cpf_aluno) references aluno()cpf 
+foreign key (cpf_aluno) references aluno(cpf) 
 );
 
 CREATE TABLE plano(
@@ -280,7 +279,7 @@ foreign key(data_exame) references exame(data_exame)
 CREATE TABLE ficha_acompanhamento(
 data date not null,
 peso decimal(3,1) not null,
-altura decimal(1,2) not null,
+altura decimal(2,2) not null,
 imc decimal(3,2) not null,
 lesao varchar(150),
 data_lesao date,
@@ -298,7 +297,7 @@ data_inicio date not null,
 data_validade date,
 primary key (cpf_instrutor, cpf_aluno, data_inicio),
 foreign key(cpf_instrutor) references instrutor(cpf),
-foreign key(cpf_aluno) references aluno(cpf),
+foreign key(cpf_aluno) references aluno(cpf)
 );
 
 CREATE TABLE treino(
@@ -311,7 +310,7 @@ cpf_aluno varchar(11),
 primary key(id),
 foreign key(data) references ficha_exercicio(data_inicio),
 foreign key(cpf_instrutor) references instrutor(cpf),
-foreign key(cpf_aluno) references aluno(cpf),
+foreign key(cpf_aluno) references aluno(cpf)
 );
 
 CREATE TABLE tipo_exercicio(
@@ -330,5 +329,87 @@ tipo int not null,
 primary key(id),
 foreign key(tipo) references tipo_exercicio(id)
 );
+
+CREATE TABLE estoque(
+id int not null auto_increment,
+descricao varchar(255),
+cnpj_filial varchar(14) not null,
+primary key(id)
+);
+
+CREATE TABLE categoria_produto(
+id int not null auto_increment,
+descricao varchar(255),
+primary key(id)
+);
+
+CREATE TABLE fornecedor(
+cnpj varchar(14) not null,
+razao_social varchar(150) not null,
+endereco varchar(255) not null,
+primary key(cnpj)
+);
+
+CREATE TABLE produto(
+codigo int not null auto_increment,
+cod_barra varchar(12) not null,
+descricao varchar(255),
+preco decimal(4,2) not null,
+categoria_produto int not null,
+cnpj_fornecedor varchar(14) not null,
+primary key(codigo,categoria_produto,cnpj_fornecedor),
+foreign key(categoria_produto) references categoria_produto(id),
+foreign key(cnpj_fornecedor) references fornecedor(cnpj)
+);
+
+CREATE TABLE produto_estoque(
+sequencial int not null auto_increment,
+preco decimal(4,2) not null,
+qtd_atual int not null,
+data_entrada date not null,
+data_validade date not null,
+id_estoque int not null,
+codigo_produto int not null,
+primary key(sequencial,id_estoque,codigo_produto),
+foreign key(id_estoque) references estoque(id),
+foreign key(codigo_produto) references produto
+);
+
+CREATE TABLE compra(
+id int not null auto_increment,
+data date not null,
+desconto decimal(2,2),
+valor_total decimal(4,2) not null,
+forma_pag int not null,
+primary key(id),
+foreign key(forma_pag) references forma_pagamento(id)
+);
+
+CREATE TABLE item_compra(
+id_compra int not null,
+codigo_produto int not null,
+valor_unitario decimal (4,2) not null,
+quantidade int not null,
+primary key(id_compra,codigo_produto),
+foreign key(id_compra) references compra(id),
+foreign key(codigo_produto) references produto(codigo)
+);
+
+CREATE TABLE cliente(
+cpf varchar(11) not null,
+nome varchar(255) not null,
+primary key(cpf)
+);
+
+CREATE TABLE historico_compra(
+id_compra int not null,
+cpf_cliente varchar(11) not null,
+cpf_vendedor varchar(11) not null,
+primary key(id_compra,cpf_cliente,cpf_vendedor),
+foreign key(id_compra) references compra(id),
+foreign key(cpf_cliente) references cliente(cpf),
+foreign key(cpf_vendedor) references vendedor(cpf)
+);
+
 
 
