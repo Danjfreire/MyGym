@@ -19,7 +19,8 @@ telefone varchar(11) not null,
 cnpj_matriz varchar(14) not null,
 unique(cnpj_filial),
 primary key(cnpj_filial,cnpj_matriz),
-foreign key(cnpj_matriz) references matriz(cnpj)
+CONSTRAINT FK_FILIAL_MATRIZ foreign key(cnpj_matriz) references matriz(cnpj)
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE equipamento(
@@ -162,7 +163,8 @@ nome varchar(255) not null,
 data_nasc date,
 cpf_responsavel varchar(11) not null,
 primary key(sequencial,cpf_responsavel),
-foreign key(cpf_responsavel) references aluno(cpf)
+CONSTRAINT FK_FUNC_DEP foreign key(cpf_responsavel) references aluno(cpf)
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE contrato(
@@ -261,6 +263,7 @@ foreign key(cpf_medico) references medico(cpf),
 foreign key(cpf_aluno) references aluno(cpf)
 );
 
+#DUVIDA CHAVE SUBSTITUTA
 CREATE TABLE result_exame(
 sequencial int not null auto_increment,
 tipo varchar(20) not null,
@@ -301,6 +304,7 @@ foreign key(cpf_instrutor) references instrutor(cpf),
 foreign key(cpf_aluno) references aluno(cpf)
 );
 
+#DUVIDA SOBRE CHAVE SUBSTITUTA
 CREATE TABLE treino(
 id int not null auto_increment,
 tipo varchar(150),
