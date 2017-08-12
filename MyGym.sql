@@ -48,7 +48,7 @@ cod_manutencao int not null,
 data_manutencao date,
 primary key (cod_equip, cod_manutencao, data_manutencao),
 foreign key (cod_equip) references equipamento(codigo_equip),
-foreign key (cod_manutencao) references manutencao(cod_manutencao),
+foreign key (cod_manutencao) references manutencao(cod_manutencao)
 );
 
 CREATE TABLE funcionario(
@@ -146,7 +146,7 @@ CREATE TABLE aluno(
 cpf char(11) not null,
 nome varchar(75) not null,
 idade int not null,
-edereco varchar(100),
+endereco varchar(100),
 data_nasc date,
 regularizado boolean,
 primary key(cpf) 
@@ -160,7 +160,7 @@ foreign key(cpf) references aluno(cpf)
 );
 
 CREATE TABLE dependente(
-sequencial int not null,
+sequencial int not null auto_increment,
 nome varchar(75) not null,
 data_nasc date,
 cpf_responsavel char(11) not null,
@@ -261,7 +261,7 @@ foreign key(cpf_aluno) references aluno(cpf)
 CREATE TABLE exame(
 cpf_medico char(11) not null,
 cpf_aluno char(11) not null,
-data_exame char(11) not null,
+data_exame date not null,
 id_exame int not null auto_increment,
 primary key(id_exame),
 foreign key(cpf_medico) references medico(cpf),
@@ -338,6 +338,7 @@ id int not null auto_increment,
 descricao varchar(100),
 cnpj_filial char(14) not null,
 primary key(id)
+foreign key(cnpj_filial) references filial(cnpj_filial)
 );
 
 CREATE TABLE categoria_produto(
@@ -360,7 +361,7 @@ descricao varchar(100),
 preco decimal(4,2) not null,
 categoria_produto int not null,
 cnpj_fornecedor char(14) not null,
-primary key(codigo,categoria_produto,cnpj_fornecedor),
+primary key(codigo),
 foreign key(categoria_produto) references categoria_produto(id),
 foreign key(cnpj_fornecedor) references fornecedor(cnpj)
 );
