@@ -6,7 +6,6 @@ import Dados.RepoInterfaces.IRepositorioAluno;
 import Dados.RepoInterfaces.IRepositorioFuncionario;
 import Dados.Repositorios.RepositorioAluno;
 import Dados.Repositorios.RepositorioFuncionario;
-import Negocio.Funcionario;
 import Negocio.Instrutor;
 
 public class Teste {
