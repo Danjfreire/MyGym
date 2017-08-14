@@ -283,8 +283,8 @@ foreign key(id_exame) references exame(id_exame)
 CREATE TABLE ficha_acompanhamento(
 data date not null,
 peso decimal(3,1) not null,
-altura decimal(2,2) not null,
-imc decimal(3,2) not null,
+altura decimal(4,2) not null,
+imc decimal(4,2) not null,
 lesao varchar(75),
 data_lesao date,
 medida_extra_1 decimal(3,2),
