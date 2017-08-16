@@ -2,7 +2,7 @@ package Dados.RepoInterfaces;
 
 import java.sql.SQLException;
 
-import Negocio.Especialidade;
+import Negocio.beans.Especialidade;
 
 
 public interface IRepositorioEspecialidade {

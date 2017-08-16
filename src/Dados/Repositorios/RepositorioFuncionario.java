@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import Dados.Conexao;
 import Dados.RepoInterfaces.IRepositorioFuncionario;
-import Negocio.Funcionario;
-import Negocio.Instrutor;
+import Negocio.beans.Funcionario;
+import Negocio.beans.Instrutor;
+import conexao.Conexao;
 
 public class RepositorioFuncionario implements IRepositorioFuncionario {
 
@@ -18,8 +18,9 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 
 	}
 
-	public void Conectar(String usuario, String senha) {
-		this.connection = new Conexao().getConexao(usuario, senha);
+	public void Conectar(Connection conexao) throws SQLException {
+		this.connection.close();
+		this.connection = conexao;
 	}
 
 	private boolean cadastrarFuncionario(Funcionario funcionario) throws SQLException {

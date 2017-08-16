@@ -1,15 +1,17 @@
-package Dados.RepoInterfaces;
+package fachada;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import Negocio.beans.Aluno;
 import Negocio.beans.Dependente;
+import Negocio.beans.Instrutor;
 
-public interface IRepositorioAluno {
+public interface IFachada {
 
-	void Conectar(Connection conexao)throws SQLException;
 	boolean CadastrarAluno(Aluno aluno) throws SQLException;
 	boolean CadastrarDependente(Dependente dependente)throws SQLException;
 	
+	boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException;
+	
+	void conectar(String user, String senha)throws SQLException;
 }

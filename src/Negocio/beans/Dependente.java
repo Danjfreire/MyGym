@@ -1,4 +1,4 @@
-package Negocio;
+package Negocio.beans;
 
 public class Dependente {
 

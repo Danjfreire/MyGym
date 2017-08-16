@@ -383,7 +383,7 @@ CREATE TABLE compra(
 id int not null auto_increment,
 data date not null,
 desconto decimal(2,2),
-valor_total decimal(4,2) not null,
+valor_total decimal(4,2),
 forma_pag int not null,
 primary key(id),
 foreign key(forma_pag) references forma_pagamento(id)

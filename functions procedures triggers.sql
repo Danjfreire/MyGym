@@ -1,4 +1,4 @@
-##FUNCTIONS
+#FUNCTIONS
 
 delimiter |
 create function parecerAluno(numeroExame int)
@@ -11,7 +11,7 @@ begin
 	return parecerdoaluno;
 end |
 
-##PROCEDURES
+#PROCEDURES
 
 delimiter \\
 create procedure criaFicha(in numcpf char(11), in dataAtual date, in pesoAtual decimal(3,1), in alturaAtual decimal(4,2))
@@ -24,3 +24,17 @@ begin
 
 	insert into ficha_acompanhamento(data, peso, altura, imc, cpf_aluno)value(dataAtual,pesoAtual, alturaAtual, auximc, numcpf);
 end \\
+
+#TRIGGERS
+delimiter \\
+create trigger valor_total_compra
+after insert on item_compra
+for each row
+begin
+	declare auxqtd int;
+	declare auxpreco decimal(4,2);
+	set auxqtd = new.quantidade;
+	set auxpreco = new.valor_unitario;
+	update compra set valor_total = (auxqtd * auxpreco) where id = new.id_compra;
+end \\
+

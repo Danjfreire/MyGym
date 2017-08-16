@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import Dados.Conexao;
 import Dados.RepoInterfaces.IRepositorioEquipamento;
-import Negocio.Equipamento;
+import Negocio.beans.Equipamento;
+import conexao.Conexao;
 
 public class RepositorioEquipamento implements IRepositorioEquipamento{
 

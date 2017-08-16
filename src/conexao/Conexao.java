@@ -1,4 +1,4 @@
-package Dados;
+package conexao;
 
 import java.sql.DriverManager;
 import java.sql.Connection;

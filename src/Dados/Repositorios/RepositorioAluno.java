@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import Dados.Conexao;
 import Dados.RepoInterfaces.IRepositorioAluno;
-import Negocio.Aluno;
-import Negocio.Dependente;
+import Negocio.beans.Aluno;
+import Negocio.beans.Dependente;
+import conexao.Conexao;
 
 public class RepositorioAluno implements IRepositorioAluno{
 
@@ -18,8 +18,9 @@ public class RepositorioAluno implements IRepositorioAluno{
 		
 	}
 	
-	public void Conectar(String usuario, String senha){
-		this.connection = new Conexao().getConexao(usuario, senha);
+	public void Conectar(Connection conexao) throws SQLException{
+		this.connection.close();
+		this.connection = conexao;
 	}
 	
 	@Override

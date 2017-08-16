@@ -1,4 +1,4 @@
-package Dados;
+package conexao;
 
 import java.sql.SQLException;
 
@@ -6,7 +6,7 @@ import Dados.RepoInterfaces.IRepositorioAluno;
 import Dados.RepoInterfaces.IRepositorioFuncionario;
 import Dados.Repositorios.RepositorioAluno;
 import Dados.Repositorios.RepositorioFuncionario;
-import Negocio.Instrutor;
+import Negocio.beans.Instrutor;
 
 public class Teste {
 
@@ -14,7 +14,7 @@ public class Teste {
 		
 		IRepositorioAluno repo = new RepositorioAluno();
 		IRepositorioFuncionario repo1 = new RepositorioFuncionario();
-		repo1.Conectar("root", "");
+		//repo1.Conectar("root", "");
 		
 		//Aluno a1 = new Aluno("11111111111", "zezinho", 20, "Rua do zezinho", "1997-02-15", 1);
 		//Dependente d1 = new Dependente("11111111111", "joaozinho", "2010-10-07");
