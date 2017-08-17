@@ -19,7 +19,9 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 	}
 
 	public void Conectar(Connection conexao) throws SQLException {
-		this.connection.close();
+		if(this.connection != null)
+			this.connection.close();
+		
 		this.connection = conexao;
 	}
 

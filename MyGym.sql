@@ -150,7 +150,7 @@ endereco varchar(100),
 data_nasc date,
 regularizado boolean,
 primary key(cpf) 
-);
+)ENGINE = innodb;
 
 CREATE TABLE telefone(
 cpf char(11) not null,

@@ -2,6 +2,7 @@ package Negocio.controladores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import Dados.RepoInterfaces.IRepositorioAluno;
 import Dados.Repositorios.RepositorioAluno;
@@ -26,12 +27,20 @@ public class ControlAluno implements IControlAluno{
 	public boolean CadastrarDependente(Dependente dependente) throws SQLException {
 		return repo.CadastrarDependente(dependente);
 	}
-
+	
+	@Override
+	public boolean atualizarAluno(Aluno aluno) throws SQLException {
+		return repo.atualizarAluno(aluno);
+	}
+	
+	@Override
+	public List<Aluno> buscaAluno(String parametro) throws SQLException {
+		return repo.buscaAluno(parametro);
+	}
+	
 	@Override
 	public void conectar(Connection conect) throws SQLException {
 		repo.Conectar(conect);
 	}
-	
-	
 	
 }

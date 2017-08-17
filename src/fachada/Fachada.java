@@ -2,6 +2,7 @@ package fachada;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import Negocio.beans.Aluno;
 import Negocio.beans.Dependente;
@@ -42,6 +43,16 @@ public class Fachada implements IFachada {
 	public boolean CadastrarAluno(Aluno aluno) throws SQLException {
 		return controlAluno.CadastrarAluno(aluno);
 	}
+	
+	@Override
+	public boolean atualizarAluno(Aluno aluno) throws SQLException {
+		return controlAluno.CadastrarAluno(aluno);
+	}
+	
+	@Override
+	public List<Aluno> buscaAluno(String parametro) throws SQLException {
+		return controlAluno.buscaAluno(parametro);
+	}
 
 	@Override
 	public boolean CadastrarDependente(Dependente dependente) throws SQLException {
@@ -52,5 +63,6 @@ public class Fachada implements IFachada {
 	public boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException {
 		return controlFuncionario.cadastrarInstrutor(instrutor);
 	}
+
 
 }
