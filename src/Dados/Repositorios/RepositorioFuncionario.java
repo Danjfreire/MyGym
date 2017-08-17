@@ -58,7 +58,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario {
 			return false;
 	}
 
-	public boolean executar(PreparedStatement ps) throws SQLException {
+	private boolean executar(PreparedStatement ps) throws SQLException {
 		boolean result;
 
 		if (ps.execute())

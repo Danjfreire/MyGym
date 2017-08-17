@@ -14,6 +14,10 @@ public interface IFachada {
 	List<Aluno> buscaAluno(String parametro) throws SQLException;
 	boolean CadastrarDependente(Dependente dependente)throws SQLException;
 	
+	Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException;
+	Aluno buscaAlunoAtividade(String cpfAluno)throws SQLException;
+	List<String> buscaAtividadesPlano(String cpfAluno) throws SQLException;
+	
 	boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException;
 	
 	void conectar(String user, String senha)throws SQLException;

@@ -8,8 +8,10 @@ import Negocio.beans.Aluno;
 import Negocio.beans.Dependente;
 import Negocio.beans.Instrutor;
 import Negocio.controladores.ControlAluno;
+import Negocio.controladores.ControlAtividade;
 import Negocio.controladores.ControlFuncionario;
 import Negocio.controlinteface.IControlAluno;
+import Negocio.controlinteface.IControlAtividade;
 import Negocio.controlinteface.IControlFuncionario;
 import conexao.Conexao;
 
@@ -17,11 +19,13 @@ public class Fachada implements IFachada {
 
 	private IControlAluno controlAluno;
 	private IControlFuncionario controlFuncionario;
+	private IControlAtividade controlAtividades;
 	private static Fachada instance;
 
 	public Fachada() {
 		this.controlAluno = new ControlAluno();
 		this.controlFuncionario = new ControlFuncionario();
+		this.controlAtividades = new ControlAtividade();
 	}
 
 	public static Fachada getInstance() {
@@ -37,6 +41,7 @@ public class Fachada implements IFachada {
 
 		controlAluno.conectar(conexao);
 		controlFuncionario.conectar(conexao);
+		controlAtividades.Conectar(conexao);
 	}
 
 	@Override
@@ -62,6 +67,21 @@ public class Fachada implements IFachada {
 	@Override
 	public boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException {
 		return controlFuncionario.cadastrarInstrutor(instrutor);
+	}
+
+	@Override
+	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException {
+		return controlAtividades.buscaInstrutorAtividade(cpfAluno);
+	}
+
+	@Override
+	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException {
+		return controlAtividades.buscaAlunoAtividade(cpfAluno);
+	}
+
+	@Override
+	public List<String> buscaAtividadesPlano(String cpfAluno) throws SQLException {
+		return controlAtividades.buscaAtividadesPlano(cpfAluno);
 	}
 
 
