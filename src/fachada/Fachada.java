@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import Negocio.beans.Aluno;
+import Negocio.beans.Atividade;
 import Negocio.beans.Dependente;
 import Negocio.beans.Instrutor;
 import Negocio.controladores.ControlAluno;
@@ -80,7 +81,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<String> buscaAtividadesPlano(String cpfAluno) throws SQLException {
+	public List<Atividade> buscaAtividadesPlano(String cpfAluno) throws SQLException {
 		return controlAtividades.buscaAtividadesPlano(cpfAluno);
 	}
 

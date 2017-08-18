@@ -7,6 +7,7 @@ import java.util.List;
 import Dados.RepoInterfaces.IRepositorioAtividades;
 import Dados.Repositorios.RepositorioAtividades;
 import Negocio.beans.Aluno;
+import Negocio.beans.Atividade;
 import Negocio.beans.Instrutor;
 import Negocio.controlinteface.IControlAtividade;
 
@@ -34,9 +35,8 @@ public class ControlAtividade implements IControlAtividade{
 	}
 
 	@Override
-	public List<String> buscaAtividadesPlano(String cpfAluno) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Atividade> buscaAtividadesPlano(String cpfAluno) throws SQLException {
+		return repo.buscaAtividadesPlano(cpfAluno);
 	}
 
 }

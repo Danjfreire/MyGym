@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,8 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Negocio.beans.Aluno;
+import Negocio.beans.Atividade;
 import Negocio.beans.Instrutor;
 import fachada.Fachada;
 
@@ -134,8 +137,6 @@ public class TelaGerencAtiv extends JFrame {
 		scrollPane.setBounds(376, 153, 248, 162);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(251, 56, 89, 23);
@@ -146,11 +147,24 @@ public class TelaGerencAtiv extends JFrame {
 					Fachada.getInstance().conectar("gerente", "senha1");
 					Aluno a1 = Fachada.getInstance().buscaAlunoAtividade(textCPFBusca.getText());
 					Instrutor i1 = Fachada.getInstance().buscaInstrutorAtividade(textCPFBusca.getText());
+					List<Atividade> atividades = Fachada.getInstance().buscaAtividadesPlano(textCPFBusca.getText());
 					
 					textNomeAluno.setText(a1.getNome());
 					textEnderecoAluno.setText(a1.getEndereco());
 					textCPFInstrutor.setText(i1.getCpf());
 					textNomeInstrutor.setText(i1.getNome());
+						
+					table = new JTable();
+					DefaultTableModel modelo = new DefaultTableModel();
+					table.setModel(modelo);
+					modelo.addColumn("Atividade");
+					modelo.addColumn("Valor");
+					scrollPane.setViewportView(table);
+					
+					for (Atividade atividade : atividades) {
+						modelo.addRow(new Object[]{atividade.getDescricao(),atividade.getValor()});
+					}
+					
 					
 				} catch (Exception excep) {
 					excep.printStackTrace();
