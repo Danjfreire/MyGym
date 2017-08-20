@@ -57,7 +57,7 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 	private Equipamento preencherEquip(ResultSet rs)throws SQLException {
 		Equipamento e1;
 		try{
-			e1 = new Equipamento(rs.getString("tipo_equip"), rs.getString("descricao"), rs.getString("cnpj_filial"));
+			e1 = new Equipamento(rs.getInt("codigo_equip"),rs.getString("tipo_equip"), rs.getString("descricao"), rs.getString("cnpj_filial"));
 		}catch(SQLException e){
 			throw e;
 		}
@@ -67,8 +67,30 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 
 	@Override
 	public List<Manutencao> buscaManutencao(String idEquip) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String query = "select * from sofreu_manutencao where cod_equip = ?";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setString(1, idEquip);
+		ResultSet rs = ps.executeQuery();
+		
+		List<Manutencao>resultado = new ArrayList<>();
+		
+		while(rs.next()){
+			resultado.add(preencherManutencao(rs));
+		}
+		
+		return resultado;
+	}
+
+	private Manutencao preencherManutencao(ResultSet rs) throws SQLException{
+		Manutencao m1;
+		try{
+			m1 = new Manutencao(rs.getInt("cod_manutencao"), rs.getDouble("valor"), rs.getString("protocolo"),
+					rs.getString("descricao"), rs.getString("data_manutencao"), rs.getString("data_devolucao"));
+		}catch(SQLException e){
+			throw e;
+		}
+		return m1;
 	}
 
 	public boolean executar(PreparedStatement ps) throws SQLException {

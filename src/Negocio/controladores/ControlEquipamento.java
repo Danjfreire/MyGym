@@ -25,14 +25,12 @@ public class ControlEquipamento implements IControlEquipamento{
 	
 	@Override
 	public List<Equipamento> buscaEquip(Equipamento e) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.buscaEquip(e);
 	}
 
 	@Override
 	public List<Manutencao> buscaManutencao(String idEquip) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.buscaManutencao(idEquip);
 	}
 
 	@Override

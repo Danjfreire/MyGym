@@ -1,16 +1,22 @@
 package Negocio.beans;
 
 public class Equipamento {
-	String tipo_equip;
-	String descricao;
-	String cnpj_filial;
+	private int codigo;
+	private String tipo_equip;
+	private String descricao;
+	private String cnpj_filial;
 	
 	
-	public Equipamento(String tipo_equip, String descricao, String cnpj_filial) {
-		super();
+	public Equipamento(int codigo,String tipo_equip, String descricao, String cnpj_filial) {
+		this.codigo=codigo;
 		this.tipo_equip = tipo_equip;
 		this.descricao = descricao;
 		this.cnpj_filial = cnpj_filial;
+	}
+
+
+	public int getCodigo() {
+		return codigo;
 	}
 
 
