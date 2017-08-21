@@ -121,7 +121,6 @@ public class TelaEquipamento extends JFrame {
 
 	private void preecherEquipamentos() {
 		try {
-			Fachada.getInstance().conectar("gerente", "senha1");
 			equipamentos = Fachada.getInstance().buscaEquip(null);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

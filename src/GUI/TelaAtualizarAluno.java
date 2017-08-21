@@ -53,11 +53,9 @@ public class TelaAtualizarAluno extends JFrame {
 	 */
 	public TelaAtualizarAluno() {
 		try {
-			Fachada.getInstance().conectar("gerente", "senha1");
 			resultado = Fachada.getInstance().buscaAluno("");
 			atual = resultado.get(indice);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -136,12 +134,11 @@ public class TelaAtualizarAluno extends JFrame {
 					Fachada.getInstance().conectar("gerente", "senha1");
 					if (!Fachada.getInstance().atualizarAluno(a1)) {
 						JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-						dispose();
+						//dispose();
 					}
 				} catch (Exception excep) {
 					excep.printStackTrace();
-					// JOptionPane.showMessageDialog(null, excep.getMessage(),
-					// "ERRO", JOptionPane.ERROR_MESSAGE);
+					 JOptionPane.showMessageDialog(null, excep.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -155,14 +152,29 @@ public class TelaAtualizarAluno extends JFrame {
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnVoltar.setBounds(51, 399, 110, 35);
 		contentPane.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMain telaMain = new TelaMain();
+				telaMain.setVisible(true);
+				dispose();
+			}
+		});
 
-		btnPrevious = new JButton("New button");
-		btnPrevious.setBounds(265, 330, 40, 23);
+		btnPrevious = new JButton("Anterior");
+		btnPrevious.setBounds(191, 330, 100, 25);
 		contentPane.add(btnPrevious);
 		btnPrevious.setEnabled(false);
+		btnPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				indice--;
+				preencherCampos(resultado.get(indice));
+			}
+
+		});
 		
-		btnNext = new JButton("New button");
-		btnNext.setBounds(308, 330, 40, 23);
+		
+		btnNext = new JButton("Proximo");
+		btnNext.setBounds(301, 330, 100, 25);
 		contentPane.add(btnNext);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

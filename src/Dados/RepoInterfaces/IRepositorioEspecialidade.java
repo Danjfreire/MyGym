@@ -7,7 +7,7 @@ import Negocio.beans.Especialidade;
 
 public interface IRepositorioEspecialidade {
 	
-	void Conectar(String usuario, String senha);
+	void Conectar(String usuario, String senha) throws Exception;
 	boolean cadastrarEspecialidade(Especialidade especialidade) throws SQLException;
 
 

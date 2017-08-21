@@ -30,7 +30,9 @@ public class RepositorioAluno implements IRepositorioAluno {
 	@Override
 	public boolean CadastrarAluno(Aluno aluno) throws SQLException {
 
-		String query = "insert into aluno (cpf, nome, idade, endereco, data_nasc, regularizado) value (?,?,?,?,?,?)";
+		String query = "START TRANSACTION;"
+				+ "insert into aluno (cpf, nome, idade, endereco, data_nasc, regularizado) value (?,?,?,?,?,?);"
+				+ "COMMIT;";
 
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, aluno.getCpf());
@@ -59,16 +61,16 @@ public class RepositorioAluno implements IRepositorioAluno {
 	@Override
 	public boolean atualizarAluno(Aluno aluno) throws SQLException {
 
-		String query = "START TRANSACTION;"
-				+ "update aluno set nome = ? , idade = ?, endereco = ?,data_nasc = ?, regularizado = ? where cpf = ?;"
-				+ "COMMIT;";
+		String query = "START TRANSACTION;update aluno set nome = ? , idade = ?, endereco = ?,data_nasc = ?, regularizado = ? where cpf = ?;COMMIT;";
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, aluno.getNome());
-		ps.setString(2, String.valueOf(aluno.getIdade()));
+		ps.setInt(2, aluno.getIdade());
 		ps.setString(3, aluno.getEndereco());
 		ps.setString(4, aluno.getData_nasc());
 		ps.setString(5, String.valueOf(aluno.isRegularizado()));
+		ps.setString(6, aluno.getCpf());
 
+		System.out.println(ps);
 		return executar(ps);
 	}
 

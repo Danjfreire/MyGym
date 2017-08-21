@@ -18,7 +18,7 @@ public class RepositorioEspecialidade implements IRepositorioEspecialidade{
 	private Connection connection;
 	
 	@Override
-	public void Conectar(String usuario, String senha) {
+	public void Conectar(String usuario, String senha) throws Exception {
 		this.connection = new Conexao().getConexao(usuario, senha);		
 	}
 

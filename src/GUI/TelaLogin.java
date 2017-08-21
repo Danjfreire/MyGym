@@ -1,23 +1,26 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import fachada.Fachada;
 
 public class TelaLogin extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textLogin;
 	private JPasswordField passwordField;
 
 	/**
@@ -47,18 +50,12 @@ public class TelaLogin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(200, 160, 215, 34);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textLogin = new JTextField();
+		textLogin.setBounds(200, 160, 215, 34);
+		contentPane.add(textLogin);
+		textLogin.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnLogin.setBounds(242, 334, 128, 35);
-		contentPane.add(btnLogin);
+		
 		
 		JLabel lblSenha = new JLabel("CPF:");
 		lblSenha.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -78,5 +75,22 @@ public class TelaLogin extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(200, 249, 215, 34);
 		contentPane.add(passwordField);
+		
+		JButton btnLogin = new JButton("Login");
+		btnLogin.setBounds(242, 334, 128, 35);
+		contentPane.add(btnLogin);
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+				Fachada.getInstance().conectar(textLogin.getText(), String.valueOf(passwordField.getPassword()));
+				TelaMain telaMain = new TelaMain();
+				telaMain.setVisible(true);
+				dispose();
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Falha no login, tente novamente", "Falha de login", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		
 	}
 }

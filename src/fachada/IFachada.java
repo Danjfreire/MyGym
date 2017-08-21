@@ -27,5 +27,5 @@ public interface IFachada {
 	
 	boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException;
 	
-	void conectar(String user, String senha)throws SQLException;
+	void conectar(String user, String senha)throws Exception;
 }

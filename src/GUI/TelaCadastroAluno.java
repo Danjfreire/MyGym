@@ -131,5 +131,12 @@ public class TelaCadastroAluno extends JFrame {
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(59, 397, 110, 35);
 		contentPane.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMain telaMain = new TelaMain();
+				telaMain.setVisible(true);
+				dispose();
+			}
+		});
 	}
 }

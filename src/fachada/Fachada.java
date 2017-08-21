@@ -43,13 +43,17 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void conectar(String user, String senha)throws SQLException {
-		Connection conexao = new Conexao().getConexao(user, senha);
-
-		controlAluno.conectar(conexao);
-		controlFuncionario.conectar(conexao);
-		controlAtividades.Conectar(conexao);
-		controlEquipamento.conectar(conexao);
+	public void conectar(String user, String senha)throws Exception {
+		Connection conexao;
+		try {
+			conexao = new Conexao().getConexao(user, senha);
+			controlAluno.conectar(conexao);
+			controlFuncionario.conectar(conexao);
+			controlAtividades.Conectar(conexao);
+			controlEquipamento.conectar(conexao);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	@Override
@@ -59,7 +63,7 @@ public class Fachada implements IFachada {
 	
 	@Override
 	public boolean atualizarAluno(Aluno aluno) throws SQLException {
-		return controlAluno.CadastrarAluno(aluno);
+		return controlAluno.atualizarAluno(aluno);
 	}
 	
 	@Override
