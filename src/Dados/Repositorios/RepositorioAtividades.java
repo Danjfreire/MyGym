@@ -26,7 +26,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	}
 
 	@Override
-	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException {
+	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
 
 		String query = "select F.cpf, F.nome, F.sexo, F.data_contrato, F.salario, F.cnpj_filial, I.licenca "
 				+ "from funcionario as F, instrutor as I, faz_atividade as FA, aluno as A "
@@ -46,7 +46,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 		return i1;
 	}
 
-	private Instrutor preencherIntrutor(ResultSet rs) throws SQLException {
+	private Instrutor preencherIntrutor(ResultSet rs) throws SQLException, Exception {
 		Instrutor i1;
 		try {
 			i1 = new Instrutor(rs.getString("cpf"), rs.getString("nome"), rs.getString("sexo").charAt(0),
@@ -59,7 +59,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	}
 
 	@Override
-	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException {
+	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException,Exception {
 
 		String query = "select A.cpf, A.nome, A.idade, A.endereco, A.data_nasc, A.regularizado "
 				+ "from aluno as A, faz_atividade as FA " + "where A.cpf = FA.cpf_aluno and A.cpf = ?;";
@@ -78,7 +78,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 		return a1;
 	}
 
-	private Aluno preecherAluno(ResultSet rs) throws SQLException {
+	private Aluno preecherAluno(ResultSet rs) throws SQLException,Exception {
 		Aluno a1;
 		try {
 			a1 = new Aluno(rs.getString("cpf"), rs.getString("nome"), Integer.parseInt(rs.getString("idade")),

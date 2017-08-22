@@ -25,12 +25,12 @@ public class ControlAtividade implements IControlAtividade{
 	}
 
 	@Override
-	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException {
+	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
 		return repo.buscaInstrutorAtividade(cpfAluno);
 	}
 
 	@Override
-	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException {
+	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException, Exception {
 		return repo.buscaAlunoAtividade(cpfAluno);
 	}
 

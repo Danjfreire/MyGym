@@ -337,7 +337,7 @@ CREATE TABLE estoque(
 id int not null auto_increment,
 descricao varchar(100),
 cnpj_filial char(14) not null,
-primary key(id)
+primary key(id),
 foreign key(cnpj_filial) references filial(cnpj_filial)
 );
 

@@ -70,7 +70,7 @@ public class TelaMain extends JFrame {
 			}
 		});
 		
-		JButton btnInfo = new JButton("Info");
+		JButton btnInfo = new JButton("Atualizar");
 		btnInfo.setBounds(384, 95, 100, 25);
 		contentPane.add(btnInfo);
 		btnInfo.addActionListener(new ActionListener() {
@@ -135,6 +135,26 @@ public class TelaMain extends JFrame {
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setBounds(284, 415, 89, 23);
 		contentPane.add(btnLogout);
+		
+		JLabel lblFuncionarios = new JLabel("Funcionarios");
+		lblFuncionarios.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblFuncionarios.setBounds(276, 288, 129, 14);
+		contentPane.add(lblFuncionarios);
+		
+		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBounds(284, 336, 105, 23);
+		contentPane.add(btnCadastrar);
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroFuncionario telaCadastro = new TelaCadastroFuncionario();
+				telaCadastro.setVisible(true);
+				dispose();
+			}
+		});
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBounds(10, 394, 614, 4);
+		contentPane.add(separator_3);
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaLogin telaLogin = new TelaLogin();

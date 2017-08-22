@@ -9,9 +9,10 @@ public class Aluno {
 	private String data_nasc;
 	private int regularizado;
 
-	public Aluno(String cpf, String nome, int idade, String endereco, String data_nasc, int regularizado) {
+	public Aluno(String cpf, String nome, int idade, String endereco, String data_nasc, int regularizado)
+			throws Exception {
 		super();
-		this.cpf = cpf;
+		checaCPF(cpf);
 		this.nome = nome;
 		this.idade = idade;
 		this.endereco = endereco;
@@ -19,6 +20,14 @@ public class Aluno {
 		this.regularizado = regularizado;
 	}
 
+	void checaCPF(String cpf) throws Exception{
+		if(cpf.matches("[0-9]+") && cpf.length() == 11)
+			this.cpf = cpf;
+		else
+			throw new Exception("CPF inválido");
+	}
+	
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -42,7 +51,5 @@ public class Aluno {
 	public int isRegularizado() {
 		return regularizado;
 	}
-	
-	
 
 }

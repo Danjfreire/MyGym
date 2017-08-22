@@ -2,6 +2,9 @@ package GUI;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,9 +16,6 @@ import javax.swing.border.EmptyBorder;
 
 import Negocio.beans.Aluno;
 import fachada.Fachada;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class TelaCadastroAluno extends JFrame {
 
@@ -119,11 +119,14 @@ public class TelaCadastroAluno extends JFrame {
 					Fachada.getInstance().conectar("gerente", "senha1");
 					if(!Fachada.getInstance().CadastrarAluno(a1)){
 						JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
+						TelaMain tela = new TelaMain();
+						tela.setVisible(true);
 						dispose();
 					}
-				}catch(Exception excep){
-					excep.printStackTrace();
-					//JOptionPane.showMessageDialog(null, excep.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+				}catch(SQLException excep){
+					JOptionPane.showMessageDialog(null, excep.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+				}catch(Exception excep2){
+					JOptionPane.showMessageDialog(null, excep2.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

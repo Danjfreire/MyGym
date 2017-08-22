@@ -30,9 +30,7 @@ public class RepositorioAluno implements IRepositorioAluno {
 	@Override
 	public boolean CadastrarAluno(Aluno aluno) throws SQLException {
 
-		String query = "START TRANSACTION;"
-				+ "insert into aluno (cpf, nome, idade, endereco, data_nasc, regularizado) value (?,?,?,?,?,?);"
-				+ "COMMIT;";
+		String query = "insert into aluno (cpf, nome, idade, endereco, data_nasc, regularizado) value (?,?,?,?,?,?);";
 
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, aluno.getCpf());
@@ -61,7 +59,7 @@ public class RepositorioAluno implements IRepositorioAluno {
 	@Override
 	public boolean atualizarAluno(Aluno aluno) throws SQLException {
 
-		String query = "START TRANSACTION;update aluno set nome = ? , idade = ?, endereco = ?,data_nasc = ?, regularizado = ? where cpf = ?;COMMIT;";
+		String query = "call atualizaAluno(?,?,?,?,?,?)";
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, aluno.getNome());
 		ps.setInt(2, aluno.getIdade());
@@ -70,12 +68,12 @@ public class RepositorioAluno implements IRepositorioAluno {
 		ps.setString(5, String.valueOf(aluno.isRegularizado()));
 		ps.setString(6, aluno.getCpf());
 
-		System.out.println(ps);
+		//System.out.println(ps);
 		return executar(ps);
 	}
 
 	@Override
-	public List<Aluno> buscaAluno(String parametro) throws SQLException {
+	public List<Aluno> buscaAluno(String parametro) throws SQLException,Exception {
 		List<Aluno> resultados = new ArrayList<Aluno>();
 		String query;
 		if (parametro.equals(""))
@@ -107,7 +105,7 @@ public class RepositorioAluno implements IRepositorioAluno {
 		return result;
 	}
 	
-	private Aluno preencherAluno(ResultSet rs) throws SQLException{
+	private Aluno preencherAluno(ResultSet rs) throws SQLException,Exception{
 		Aluno a1;
 		try{
 			 a1 = new Aluno(rs.getString("cpf"), rs.getString("nome"), Integer.parseInt(rs.getString("idade"))

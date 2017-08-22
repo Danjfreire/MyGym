@@ -67,7 +67,7 @@ public class Fachada implements IFachada {
 	}
 	
 	@Override
-	public List<Aluno> buscaAluno(String parametro) throws SQLException {
+	public List<Aluno> buscaAluno(String parametro) throws SQLException,Exception {
 		return controlAluno.buscaAluno(parametro);
 	}
 
@@ -82,12 +82,12 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException {
+	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception {
 		return controlAtividades.buscaInstrutorAtividade(cpfAluno);
 	}
 
 	@Override
-	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException {
+	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException,Exception{
 		return controlAtividades.buscaAlunoAtividade(cpfAluno);
 	}
 

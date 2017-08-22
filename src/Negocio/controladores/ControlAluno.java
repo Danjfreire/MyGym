@@ -34,7 +34,7 @@ public class ControlAluno implements IControlAluno{
 	}
 	
 	@Override
-	public List<Aluno> buscaAluno(String parametro) throws SQLException {
+	public List<Aluno> buscaAluno(String parametro) throws SQLException,Exception {
 		return repo.buscaAluno(parametro);
 	}
 	

@@ -9,14 +9,22 @@ public class Funcionario {
 	private double salario;
 	private String cnpjFilial;
 
-	public Funcionario(String cpf, String nome, char sexo, String dataContrato, double salario, String cnpjFilial) {
+	public Funcionario(String cpf, String nome, char sexo, String dataContrato, double salario, String cnpjFilial)
+			throws Exception {
 		super();
-		this.cpf = cpf;
+		checaCPF(cpf);
 		this.nome = nome;
 		this.sexo = sexo;
 		this.dataContrato = dataContrato;
 		this.salario = salario;
 		this.cnpjFilial = cnpjFilial;
+	}
+
+	void checaCPF(String cpf) throws Exception {
+		if (cpf.matches("[0-9]+") && cpf.length() == 11)
+			this.cpf = cpf;
+		else
+			throw new Exception("CPF inválido");
 	}
 
 	public String getCpf() {

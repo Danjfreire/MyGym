@@ -57,6 +57,8 @@ public class TelaAtualizarAluno extends JFrame {
 			atual = resultado.get(indice);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		}catch (Exception e2){
+			e2.printStackTrace();
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,14 +133,14 @@ public class TelaAtualizarAluno extends JFrame {
 				try {
 					Aluno a1 = new Aluno(textCPF.getText(), textNome.getText(), Integer.parseInt(textIdade.getText()),
 							textEndereco.getText(), textDataNasc.getText(), 1);
-					Fachada.getInstance().conectar("gerente", "senha1");
 					if (!Fachada.getInstance().atualizarAluno(a1)) {
-						JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
-						//dispose();
+						JOptionPane.showMessageDialog(null, "Atualização efetuada com sucesso");
 					}
-				} catch (Exception excep) {
+				} catch (SQLException excep) {
 					excep.printStackTrace();
 					 JOptionPane.showMessageDialog(null, excep.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+				}catch(Exception excep2){
+					 JOptionPane.showMessageDialog(null, excep2.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

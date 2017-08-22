@@ -57,9 +57,9 @@ public class TelaLogin extends JFrame {
 		
 		
 		
-		JLabel lblSenha = new JLabel("CPF:");
+		JLabel lblSenha = new JLabel("Login:");
 		lblSenha.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblSenha.setBounds(127, 167, 34, 18);
+		lblSenha.setBounds(112, 167, 49, 18);
 		contentPane.add(lblSenha);
 		
 		JLabel label = new JLabel("Senha:");
