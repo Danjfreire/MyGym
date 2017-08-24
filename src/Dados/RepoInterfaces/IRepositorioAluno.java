@@ -14,4 +14,5 @@ public interface IRepositorioAluno {
 	boolean CadastrarDependente(Dependente dependente)throws SQLException;
 	boolean atualizarAluno(Aluno aluno)throws SQLException;
 	List<Aluno> buscaAluno(String parametro) throws SQLException, Exception;
+	boolean removerAluno(String parametro) throws SQLException;
 }

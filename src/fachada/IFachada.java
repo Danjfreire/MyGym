@@ -16,6 +16,7 @@ public interface IFachada {
 	boolean atualizarAluno(Aluno aluno) throws SQLException;
 	List<Aluno> buscaAluno(String parametro) throws SQLException,Exception;
 	boolean CadastrarDependente(Dependente dependente)throws SQLException;
+	boolean removerAluno(String parametro) throws SQLException;
 	
 	Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception;
 	Aluno buscaAlunoAtividade(String cpfAluno)throws SQLException,Exception;

@@ -42,5 +42,10 @@ public class ControlAluno implements IControlAluno{
 	public void conectar(Connection conect) throws SQLException {
 		repo.Conectar(conect);
 	}
+
+	@Override
+	public boolean removerAluno(String parametro) throws SQLException {
+		return repo.removerAluno(parametro);
+	}
 	
 }

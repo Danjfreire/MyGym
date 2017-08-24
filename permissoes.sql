@@ -9,7 +9,7 @@ GRANT SELECT ON MyGym.cliente TO 'vendedor'@'localhost';
 CREATE USER 'recepcionista'@'localhost' IDENTIFIED BY 'senha3';
 GRANT SELECT ON MyGym.aluno TO 'recepcionista'@'localhost';
 GRANT INSERT ON MyGym.aluno TO 'recepcionista'@'localhost'; 
-GRANT SELECT ON MyGym.intrutor TO 'recepcionista'@'localhost';
+GRANT SELECT ON MyGym.instrutor TO 'recepcionista'@'localhost';
 GRANT SELECT ON MyGym.medico TO 'recepcionista'@'localhost';
 GRANT SELECT ON MyGym.exame TO 'recepcionista'@'localhost';
 GRANT INSERT ON MyGym.exame TO 'recepcionista'@'localhost';

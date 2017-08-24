@@ -149,6 +149,17 @@ public class TelaAtualizarAluno extends JFrame {
 		btnRemover.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnRemover.setBounds(257, 399, 110, 35);
 		contentPane.add(btnRemover);
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					Fachada.getInstance().removerAluno(textCPF.getText());
+					JOptionPane.showMessageDialog(null, "Remoção efetuada com sucesso");
+					resultado.remove(indice);
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+		});
 
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));

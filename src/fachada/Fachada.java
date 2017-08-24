@@ -111,5 +111,10 @@ public class Fachada implements IFachada {
 		return controlEquipamento.cadastrarEquip(e);
 	}
 
+	@Override
+	public boolean removerAluno(String parametro) throws SQLException {
+		return controlAluno.removerAluno(parametro);
+	}
+
 
 }

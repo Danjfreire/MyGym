@@ -116,4 +116,14 @@ public class RepositorioAluno implements IRepositorioAluno {
 		return a1;
 	}
 
+	@Override
+	public boolean removerAluno(String parametro) throws SQLException {
+		
+		String query = "delete from aluno where cpf = ?";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setString(1, parametro);
+		
+		return executar(ps);
+	}
+
 }

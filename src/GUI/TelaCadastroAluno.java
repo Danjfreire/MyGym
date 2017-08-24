@@ -116,7 +116,6 @@ public class TelaCadastroAluno extends JFrame {
 				try{
 					Aluno a1 = new Aluno(textCPF.getText(), textNome.getText(), Integer.parseInt(textIdade.getText()),
 							textEndereco.getText(), textData.getText(), 1);
-					Fachada.getInstance().conectar("gerente", "senha1");
 					if(!Fachada.getInstance().CadastrarAluno(a1)){
 						JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
 						TelaMain tela = new TelaMain();

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -91,7 +92,6 @@ public class TelaEquipamento extends JFrame {
 				List<Manutencao> manutencoes;
 				try {
 					manutencoes = Fachada.getInstance().buscaManutencao(String.valueOf(e1.getCodigo()));
-
 					DefaultTableModel modelo = new DefaultTableModel();
 					tableManun.setModel(modelo);
 					modelo.addColumn("Codigo");
@@ -100,15 +100,15 @@ public class TelaEquipamento extends JFrame {
 					modelo.addColumn("Descricao");
 					modelo.addColumn("Data manutencao");
 					modelo.addColumn("Data devolucao");
-
+					
 					for (Manutencao manutencao : manutencoes) {
 						modelo.addRow(new Object[] { manutencao.getCod_manutencao(), manutencao.getProtocolo(),
 								manutencao.getValor(), manutencao.getDescricao(), manutencao.getData_manutencao(),
 								manutencao.getData_devoluca() });
 					}
+					
 				} catch (SQLException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, e2.getMessage());
 				}
 
 			}
@@ -116,7 +116,14 @@ public class TelaEquipamento extends JFrame {
 
 		JButton btnVoltar = new JButton("voltar");
 		btnVoltar.setBounds(122, 213, 89, 23);
-		contentPane.add(btnVoltar);
+		contentPane.add(btnVoltar);btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMain telaMain = new TelaMain();
+				telaMain.setVisible(true);
+				dispose();
+			}
+		});
+		
 	}
 
 	private void preecherEquipamentos() {

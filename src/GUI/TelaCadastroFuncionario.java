@@ -168,7 +168,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		contentPane.add(textComp);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(469, 414, 89, 23);
+		btnCadastrar.setBounds(469, 414, 109, 23);
 		contentPane.add(btnCadastrar);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
