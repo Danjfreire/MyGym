@@ -50,44 +50,64 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 		}
 		ps.close();
 		rs.close();
-		
+
 		return resultado;
 	}
 
-	private Equipamento preencherEquip(ResultSet rs)throws SQLException {
+	private Equipamento preencherEquip(ResultSet rs) throws SQLException {
 		Equipamento e1;
-		try{
-			e1 = new Equipamento(rs.getInt("codigo_equip"),rs.getString("tipo_equip"), rs.getString("descricao"), rs.getString("cnpj_filial"));
-		}catch(SQLException e){
+		try {
+			e1 = new Equipamento(rs.getInt("codigo_equip"), rs.getString("tipo_equip"), rs.getString("descricao"),
+					rs.getString("cnpj_filial"));
+		} catch (SQLException e) {
 			throw e;
 		}
-		
+
 		return e1;
 	}
 
 	@Override
 	public List<Manutencao> buscaManutencao(String idEquip) throws SQLException {
+
+		String query1 = "select * from sofreu_manutencao where cod_equip = ?";
+		PreparedStatement ps1 = (PreparedStatement) connection.prepareStatement(query1);
+		ps1.setString(1, idEquip);
+		ResultSet rs1 = ps1.executeQuery();
+
+		List<Integer> IDs = new ArrayList<>();
+		List<Manutencao> resultado = new ArrayList<>();
+
+		while (rs1.next()) {
+			IDs.add(rs1.getInt("cod_manutencao"));
+		}
+
+		ps1.close();
+		rs1.close();
 		
-		String query = "select * from sofreu_manutencao where cod_equip = ?";
-		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
-		ps.setString(1, idEquip);
-		ResultSet rs = ps.executeQuery();
-		
-		List<Manutencao>resultado = new ArrayList<>();
-		
-		while(rs.next()){
-			resultado.add(preencherManutencao(rs));
+		for(int i = 0; i< IDs.size();i++) {
+			String query2 = "select * from manutencao where cod_manutencao = ?";
+			PreparedStatement ps2 = (PreparedStatement) connection.prepareStatement(query2);
+			ps2.setInt(1, IDs.get(i));
+			ResultSet rs2 = ps2.executeQuery();
+			
+			while(rs2.next()){
+				resultado.add(preencherManutencao(rs2));
+			}
+			ps2.close();
+			rs2.close();
+
 		}
 		
+
 		return resultado;
 	}
 
-	private Manutencao preencherManutencao(ResultSet rs) throws SQLException{
+	private Manutencao preencherManutencao(ResultSet rs) throws SQLException {
 		Manutencao m1;
-		try{
+		try {
 			m1 = new Manutencao(rs.getInt("cod_manutencao"), rs.getDouble("valor"), rs.getString("protocolo"),
 					rs.getString("descricao"), rs.getString("data_manutencao"), rs.getString("data_devolucao"));
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			throw e;
 		}
 		return m1;
