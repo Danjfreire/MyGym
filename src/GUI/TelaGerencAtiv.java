@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -143,6 +144,9 @@ public class TelaGerencAtiv extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Fachada.getInstance().conectar("gerente", "senha1");
+					if(textCPFBusca.getText().length() <= 0) {
+						JOptionPane.showMessageDialog(null, "CPF inválido");
+					}
 					Aluno a1 = Fachada.getInstance().buscaAlunoAtividade(textCPFBusca.getText());
 					Instrutor i1 = Fachada.getInstance().buscaInstrutorAtividade(textCPFBusca.getText());
 					List<Atividade> atividades = Fachada.getInstance().buscaAtividadesPlano(textCPFBusca.getText());
@@ -164,9 +168,9 @@ public class TelaGerencAtiv extends JFrame {
 					}
 
 				} catch (Exception excep) {
-					excep.printStackTrace();
-					// JOptionPane.showMessageDialog(null, excep.getMessage(),
-					// "ERRO", JOptionPane.ERROR_MESSAGE);
+					//excep.printStackTrace();
+					 JOptionPane.showMessageDialog(null, excep.getMessage(),
+					 "ERRO", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

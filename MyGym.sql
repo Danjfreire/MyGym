@@ -195,6 +195,7 @@ CHECK(data_fim > data_inicio)
 CREATE TABLE fatura(
 codigo int not null auto_increment,
 valor_total decimal(10,2) not null,
+valor_parcial decimal(10,2) not null,
 num_parcelas int not null,
 data_vencimento date not null,
 quitada boolean not null,

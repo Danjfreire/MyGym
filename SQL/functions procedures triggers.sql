@@ -11,6 +11,19 @@ begin
 	return parecerdoaluno;
 end |
 
+
+delimiter |
+create function regularizadoAluno(cpfAluno char)
+return varchar(100)
+deterministic
+begin
+	declare situacaoAluno varchar(100);
+	set situacaoAluno = (select quitada from mygym.fatura where cpfAluno = contrato.cpf);
+	return situacaoAluno;
+end |
+
+
+
 #PROCEDURES
 
 delimiter \\
@@ -25,6 +38,8 @@ begin
 	insert into ficha_acompanhamento(data, peso, altura, imc, cpf_aluno)value(dataAtual,pesoAtual, alturaAtual, auximc, numcpf);
 end \\
 
+
+
 #TRIGGERS
 delimiter \\
 create trigger valor_total_compra
@@ -36,5 +51,17 @@ begin
 	set auxqtd = new.quantidade;
 	set auxpreco = new.valor_unitario;
 	update compra set valor_total = (auxqtd * auxpreco) where id = new.id_compra;
+end \\
+
+delimiter \\
+create trigger valor_parcial_fatura
+after insert on fatura
+for each row
+begin
+	declare auxparcelas int;
+	declare auxvalor decimal(10,2);
+	set auxparcelas = new.num_parcelas;
+	set auxvalor_total = new.valor_total;
+	update fatura set valor_parcial = (auxvalor_total / auxparcelas) where codigo = new.codigo;
 end \\
 

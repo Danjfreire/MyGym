@@ -82,10 +82,14 @@ public class TelaLogin extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-				Fachada.getInstance().conectar(textLogin.getText(), String.valueOf(passwordField.getPassword()));
-				TelaMain telaMain = new TelaMain();
-				telaMain.setVisible(true);
-				dispose();
+					if(textLogin.getText() == "" || String.valueOf(passwordField.getPassword()) == "" || textLogin.getText() == null 
+							|| String.valueOf(passwordField.getPassword()) == null) {
+						JOptionPane.showMessageDialog(null, "Os campos não podem estar vazios", "Falha de Login", JOptionPane.WARNING_MESSAGE);
+					}
+					Fachada.getInstance().conectar(textLogin.getText(), String.valueOf(passwordField.getPassword()));
+					TelaMain telaMain = new TelaMain();
+					telaMain.setVisible(true);
+					dispose();
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null, "Falha no login, tente novamente", "Falha de login", JOptionPane.WARNING_MESSAGE);
 				}

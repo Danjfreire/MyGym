@@ -107,7 +107,7 @@ public class TelaMain extends JFrame {
 		contentPane.add(btnEquipamento);
 		btnEquipamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaEquipamento telaEquip = new TelaEquipamento();
+				TelaCompra telaEquip = new TelaCompra();
 				telaEquip.setVisible(true);
 				dispose();
 			}
