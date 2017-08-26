@@ -16,5 +16,15 @@ create procedure atualizaManutencao(in codigo int,in novoValor double, in novoPr
 		START TRANSACTION;
 		update manutencao set valor = novoValor, protocolo = novoProtocolo, descricao = novaDesc, data_manutencao = novaDataM, data_devolucao = novaDataD 
 			where cod_manutencao = codigo;
+		update sofreu_manutencao set data_manutencao = novaDataM where cod_manutencao = codigo;
 		COMMIT;
 	end \\	
+
+delimiter \\
+create procedure removerManutencao(in codigo int)
+	begin
+		START TRANSACTION;
+		delete from manutencao where cod_manutencao = codigo;
+		delete from sofreu_manutencao where cod_manutencao = codigo;
+		COMMIT;
+	end \\

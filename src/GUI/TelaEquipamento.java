@@ -91,12 +91,13 @@ public class TelaEquipamento extends JFrame {
 		btnAtualizar.setEnabled(false);
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-				Manutencao m1 = manutencoes.get(tableManun.getSelectedRow());
-				TelaAtualizarManutencao tela = new TelaAtualizarManutencao(m1);
-				tela.setVisible(true);
-				}catch(Exception ex){
-					JOptionPane.showMessageDialog(null, "Selecione uma manutencao", "Erro", JOptionPane.WARNING_MESSAGE);
+				try {
+					Manutencao m1 = manutencoes.get(tableManun.getSelectedRow());
+					TelaAtualizarManutencao tela = new TelaAtualizarManutencao(m1);
+					tela.setVisible(true);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Selecione uma manutencao", "Erro",
+							JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -107,13 +108,19 @@ public class TelaEquipamento extends JFrame {
 		btnRemover.setEnabled(false);
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaMain telaMain = new TelaMain();
-				telaMain.setVisible(true);
-				dispose();
+				try {
+					Manutencao m1 = manutencoes.get(tableManun.getSelectedRow());
+					Fachada.getInstance().removerManutencao(String.valueOf(m1.getCod_manutencao()));
+					JOptionPane.showMessageDialog(null, "Item removido com sucesso");
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				} catch (Exception ex1) {
+					JOptionPane.showMessageDialog(null, "Selecione uma manutencao", "Erro",
+							JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
-		
-		
+
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(315, 206, 89, 23);
 		contentPane.add(btnBuscar);
@@ -137,7 +144,7 @@ public class TelaEquipamento extends JFrame {
 								manutencao.getValor(), manutencao.getDescricao(), manutencao.getData_manutencao(),
 								manutencao.getData_devoluca() });
 					}
-					
+
 					btnAtualizar.setEnabled(true);
 					btnRemover.setEnabled(true);
 				} catch (SQLException e2) {
@@ -157,8 +164,6 @@ public class TelaEquipamento extends JFrame {
 				dispose();
 			}
 		});
-
-		
 
 	}
 

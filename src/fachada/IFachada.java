@@ -25,6 +25,7 @@ public interface IFachada {
 	List<Equipamento> buscaEquip(Equipamento e) throws SQLException;
 	List<Manutencao> buscaManutencao(String idEquip)throws SQLException;
 	boolean atualizarManutencao(Manutencao m1) throws SQLException;
+	boolean removerManutencao(String codigo)throws SQLException;
 	boolean cadastrarEquip(Equipamento e) throws SQLException;
 	
 	boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException;

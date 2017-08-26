@@ -121,5 +121,10 @@ public class Fachada implements IFachada {
 		return controlEquipamento.atualizarManutencao(m1);
 	}
 
+	@Override
+	public boolean removerManutencao(String codigo) throws SQLException {
+		return controlEquipamento.removerManutencao(codigo);
+	}
+
 
 }

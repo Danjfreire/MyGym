@@ -43,5 +43,10 @@ public class ControlEquipamento implements IControlEquipamento{
 		return repo.atualizarManutencao(m1);
 	}
 
+	@Override
+	public boolean removerManutencao(String codigo) throws SQLException {
+		return repo.removerManutencao(codigo);
+	}
+
 
 }

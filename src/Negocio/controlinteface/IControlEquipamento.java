@@ -13,5 +13,6 @@ public interface IControlEquipamento {
 	List<Manutencao> buscaManutencao(String idEquip)throws SQLException;
 	boolean cadastrarEquip(Equipamento e) throws SQLException;
 	boolean atualizarManutencao(Manutencao m1) throws SQLException;
+	boolean removerManutencao(String codigo) throws SQLException;
 	void conectar(Connection conect)throws SQLException;
 }

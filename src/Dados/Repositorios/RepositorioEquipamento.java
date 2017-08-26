@@ -139,4 +139,13 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 		return executar(ps);
 	}
 
+	@Override
+	public boolean removerManutencao(String codigo) throws SQLException {
+		
+		String query = "call removerManutencao(?)";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setInt(1, Integer.parseInt(codigo));
+		return executar(ps);
+	}
+
 }
