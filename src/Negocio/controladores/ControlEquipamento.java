@@ -38,5 +38,10 @@ public class ControlEquipamento implements IControlEquipamento{
 		return repo.cadastrarEquipamento(e);
 	}
 
+	@Override
+	public boolean atualizarManutencao(Manutencao m1) throws SQLException {
+		return repo.atualizarManutencao(m1);
+	}
+
 
 }

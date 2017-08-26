@@ -13,5 +13,6 @@ public interface IRepositorioEquipamento {
 	boolean cadastrarEquipamento(Equipamento equipamento) throws SQLException;
 	List<Equipamento> buscaEquip(Equipamento e) throws SQLException;
 	List<Manutencao> buscaManutencao(String idEquip)throws SQLException;
+	boolean atualizarManutencao(Manutencao m1)throws SQLException;
 
 }

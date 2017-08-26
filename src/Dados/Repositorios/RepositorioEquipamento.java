@@ -125,4 +125,18 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 		return result;
 	}
 
+	@Override
+	public boolean atualizarManutencao(Manutencao m1) throws SQLException{
+		
+		String query1 = "call atualizaManutencao(?,?,?,?,?,?)";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query1);
+		ps.setInt(1, m1.getCod_manutencao());
+		ps.setDouble(2, m1.getValor());
+		ps.setString(3, m1.getProtocolo());
+		ps.setString(4, m1.getDescricao());
+		ps.setString(5, m1.getData_manutencao());
+		ps.setString(6, m1.getData_devoluca());
+		return executar(ps);
+	}
+
 }

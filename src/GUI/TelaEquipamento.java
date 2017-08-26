@@ -28,6 +28,7 @@ public class TelaEquipamento extends JFrame {
 	private JTable tableEquip;
 	private JTable tableManun;
 	private List<Equipamento> equipamentos;
+	private List<Manutencao> manutencoes = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -84,13 +85,42 @@ public class TelaEquipamento extends JFrame {
 		tableManun = new JTable();
 		scrollPane_1.setViewportView(tableManun);
 
+		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setBounds(315, 502, 89, 23);
+		contentPane.add(btnAtualizar);
+		btnAtualizar.setEnabled(false);
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+				Manutencao m1 = manutencoes.get(tableManun.getSelectedRow());
+				TelaAtualizarManutencao tela = new TelaAtualizarManutencao(m1);
+				tela.setVisible(true);
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Selecione uma manutencao", "Erro", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+
+		JButton btnRemover = new JButton("Remover");
+		btnRemover.setBounds(612, 502, 89, 23);
+		contentPane.add(btnRemover);
+		btnRemover.setEnabled(false);
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaMain telaMain = new TelaMain();
+				telaMain.setVisible(true);
+				dispose();
+			}
+		});
+		
+		
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(531, 213, 89, 23);
+		btnBuscar.setBounds(315, 206, 89, 23);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Equipamento e1 = equipamentos.get(tableEquip.getSelectedRow());
-				List<Manutencao> manutencoes;
+
 				try {
 					manutencoes = Fachada.getInstance().buscaManutencao(String.valueOf(e1.getCodigo()));
 					DefaultTableModel modelo = new DefaultTableModel();
@@ -101,13 +131,15 @@ public class TelaEquipamento extends JFrame {
 					modelo.addColumn("Descricao");
 					modelo.addColumn("Data manutencao");
 					modelo.addColumn("Data devolucao");
-					
+
 					for (Manutencao manutencao : manutencoes) {
 						modelo.addRow(new Object[] { manutencao.getCod_manutencao(), manutencao.getProtocolo(),
 								manutencao.getValor(), manutencao.getDescricao(), manutencao.getData_manutencao(),
 								manutencao.getData_devoluca() });
 					}
 					
+					btnAtualizar.setEnabled(true);
+					btnRemover.setEnabled(true);
 				} catch (SQLException e2) {
 					JOptionPane.showMessageDialog(null, e2.getMessage());
 				}
@@ -116,15 +148,18 @@ public class TelaEquipamento extends JFrame {
 		});
 
 		JButton btnVoltar = new JButton("voltar");
-		btnVoltar.setBounds(155, 213, 89, 23);
-		contentPane.add(btnVoltar);btnVoltar.addActionListener(new ActionListener() {
+		btnVoltar.setBounds(38, 502, 89, 23);
+		contentPane.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaMain telaMain = new TelaMain();
 				telaMain.setVisible(true);
 				dispose();
 			}
 		});
+
 		
+
 	}
 
 	private void preecherEquipamentos() {
@@ -148,5 +183,4 @@ public class TelaEquipamento extends JFrame {
 		}
 
 	}
-
 }
