@@ -101,7 +101,7 @@ public class RepositorioAluno implements IRepositorioAluno {
 			result = false;
 
 		ps.close();
-		System.out.println("Retornou " + result);
+		//System.out.println("Retornou " + result);
 		return result;
 	}
 	

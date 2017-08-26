@@ -53,15 +53,15 @@ public class TelaGerencAtiv extends JFrame {
 	 */
 	public TelaGerencAtiv() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 500);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
-
+		setResizable(false);
 		JLabel lblAtividades = new JLabel("Atividades");
 		lblAtividades.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblAtividades.setBounds(277, 11, 106, 14);
+		lblAtividades.setBounds(347, 11, 106, 14);
 		contentPane.add(lblAtividades);
 
 		JLabel lblNewLabel = new JLabel("CPF");
@@ -130,11 +130,11 @@ public class TelaGerencAtiv extends JFrame {
 
 		JLabel lblPlano = new JLabel("Plano");
 		lblPlano.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPlano.setBounds(470, 123, 46, 14);
+		lblPlano.setBounds(546, 109, 46, 14);
 		contentPane.add(lblPlano);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(376, 153, 248, 162);
+		scrollPane.setBounds(420, 151, 317, 162);
 		contentPane.add(scrollPane);
 
 		JButton btnBuscar = new JButton("Buscar");
@@ -176,7 +176,7 @@ public class TelaGerencAtiv extends JFrame {
 		});
 
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(251, 415, 89, 23);
+		btnVoltar.setBounds(84, 488, 89, 23);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

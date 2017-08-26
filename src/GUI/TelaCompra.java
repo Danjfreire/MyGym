@@ -51,24 +51,25 @@ public class TelaCompra extends JFrame {
 	public TelaCompra() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 500);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 
 		JLabel lblNewLabel = new JLabel("Item");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(289, 15, 45, 24);
+		lblNewLabel.setBounds(339, 11, 45, 24);
 		contentPane.add(lblNewLabel);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(31, 51, 576, 128);
+		scrollPane.setBounds(31, 51, 714, 128);
 		contentPane.add(scrollPane);
 
 		JLabel lblManutencao = new JLabel("Vendedor");
 		lblManutencao.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblManutencao.setBounds(275, 262, 80, 14);
+		lblManutencao.setBounds(324, 263, 80, 14);
 		contentPane.add(lblManutencao);
 
 		tableEquip = new JTable();
@@ -77,14 +78,14 @@ public class TelaCompra extends JFrame {
 		preecherEquipamentos();
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(41, 288, 566, 136);
+		scrollPane_1.setBounds(21, 288, 724, 136);
 		contentPane.add(scrollPane_1);
 
 		tableManun = new JTable();
 		scrollPane_1.setViewportView(tableManun);
 
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(388, 213, 89, 23);
+		btnBuscar.setBounds(490, 213, 89, 23);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +116,7 @@ public class TelaCompra extends JFrame {
 		});
 
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(122, 213, 89, 23);
+		btnVoltar.setBounds(170, 213, 89, 23);
 		contentPane.add(btnVoltar);btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaMain telaMain = new TelaMain();

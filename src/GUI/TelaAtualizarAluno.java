@@ -62,11 +62,12 @@ public class TelaAtualizarAluno extends JFrame {
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 500);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -126,7 +127,7 @@ public class TelaAtualizarAluno extends JFrame {
 		
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnAtualizar.setBounds(467, 399, 110, 35);
+		btnAtualizar.setBounds(572, 399, 110, 35);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,7 +148,7 @@ public class TelaAtualizarAluno extends JFrame {
 
 		JButton btnRemover = new JButton("Remover");
 		btnRemover.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnRemover.setBounds(257, 399, 110, 35);
+		btnRemover.setBounds(338, 399, 110, 35);
 		contentPane.add(btnRemover);
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -163,7 +164,7 @@ public class TelaAtualizarAluno extends JFrame {
 
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnVoltar.setBounds(51, 399, 110, 35);
+		btnVoltar.setBounds(139, 399, 110, 35);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -174,7 +175,7 @@ public class TelaAtualizarAluno extends JFrame {
 		});
 
 		btnPrevious = new JButton("Anterior");
-		btnPrevious.setBounds(191, 330, 100, 25);
+		btnPrevious.setBounds(260, 330, 100, 25);
 		contentPane.add(btnPrevious);
 		btnPrevious.setEnabled(false);
 		btnPrevious.addActionListener(new ActionListener() {
@@ -187,7 +188,7 @@ public class TelaAtualizarAluno extends JFrame {
 		
 		
 		btnNext = new JButton("Proximo");
-		btnNext.setBounds(301, 330, 100, 25);
+		btnNext.setBounds(411, 330, 100, 25);
 		contentPane.add(btnNext);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -51,15 +51,16 @@ public class TelaCadastroFuncionario extends JFrame {
 	 */
 	public TelaCadastroFuncionario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 500);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 
 		JLabel lblCadastroFuncionario = new JLabel("Cadastro funcionario");
 		lblCadastroFuncionario.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCadastroFuncionario.setBounds(247, 11, 170, 14);
+		lblCadastroFuncionario.setBounds(323, 11, 170, 14);
 		contentPane.add(lblCadastroFuncionario);
 
 		JLabel lblNome = new JLabel("Nome");
@@ -123,7 +124,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		contentPane.add(textSalario);
 
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(27, 414, 89, 23);
+		btnVoltar.setBounds(93, 414, 89, 23);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -168,7 +169,7 @@ public class TelaCadastroFuncionario extends JFrame {
 		contentPane.add(textComp);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(469, 414, 109, 23);
+		btnCadastrar.setBounds(588, 414, 109, 23);
 		contentPane.add(btnCadastrar);
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,6 +189,8 @@ public class TelaCadastroFuncionario extends JFrame {
 								Double.parseDouble(textSalario.getText()), textCNPJ.getText(), textComp.getText());
 						Fachada.getInstance().cadastrarInstrutor(i1);
 						JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso");
+						TelaMain telaMain = new TelaMain();
+						telaMain.setVisible(true);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Só é possível cadastrar instrutores no momento",

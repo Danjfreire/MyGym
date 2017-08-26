@@ -47,15 +47,16 @@ public class TelaCadastroAluno extends JFrame {
 	 */
 	public TelaCadastroAluno() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 500);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		JLabel lblControleDeFuncionrios = new JLabel("Cadastrar aluno");
 		lblControleDeFuncionrios.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblControleDeFuncionrios.setBounds(237, 22, 148, 25);
+		lblControleDeFuncionrios.setBounds(309, 11, 148, 25);
 		contentPane.add(lblControleDeFuncionrios);
 		
 		JLabel lblNome = new JLabel("Nome");
@@ -109,7 +110,7 @@ public class TelaCadastroAluno extends JFrame {
 		textIdade.setColumns(10);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(417, 397, 110, 35);
+		btnCadastrar.setBounds(544, 397, 110, 35);
 		contentPane.add(btnCadastrar);
 		btnCadastrar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -131,7 +132,7 @@ public class TelaCadastroAluno extends JFrame {
 		});
 		
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(59, 397, 110, 35);
+		btnVoltar.setBounds(86, 397, 110, 35);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

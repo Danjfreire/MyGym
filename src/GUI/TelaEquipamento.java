@@ -51,24 +51,25 @@ public class TelaEquipamento extends JFrame {
 	public TelaEquipamento() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 500);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 
 		JLabel lblNewLabel = new JLabel("Equipamento");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(257, 11, 111, 24);
+		lblNewLabel.setBounds(315, 11, 111, 24);
 		contentPane.add(lblNewLabel);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(31, 51, 576, 128);
+		scrollPane.setBounds(31, 51, 731, 128);
 		contentPane.add(scrollPane);
 
 		JLabel lblManutencao = new JLabel("Manutencao");
 		lblManutencao.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblManutencao.setBounds(257, 260, 122, 14);
+		lblManutencao.setBounds(315, 255, 122, 14);
 		contentPane.add(lblManutencao);
 
 		tableEquip = new JTable();
@@ -77,14 +78,14 @@ public class TelaEquipamento extends JFrame {
 		preecherEquipamentos();
 
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(41, 288, 566, 136);
+		scrollPane_1.setBounds(41, 288, 721, 136);
 		contentPane.add(scrollPane_1);
 
 		tableManun = new JTable();
 		scrollPane_1.setViewportView(tableManun);
 
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(388, 213, 89, 23);
+		btnBuscar.setBounds(531, 213, 89, 23);
 		contentPane.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +116,7 @@ public class TelaEquipamento extends JFrame {
 		});
 
 		JButton btnVoltar = new JButton("voltar");
-		btnVoltar.setBounds(122, 213, 89, 23);
+		btnVoltar.setBounds(155, 213, 89, 23);
 		contentPane.add(btnVoltar);btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaMain telaMain = new TelaMain();
