@@ -48,5 +48,10 @@ public class ControlEquipamento implements IControlEquipamento{
 		return repo.removerManutencao(codigo);
 	}
 
+	@Override
+	public boolean cadastrarManutencao(Manutencao m1, int cod) throws SQLException {
+		return repo.cadastrarManutencao(m1, cod);
+	}
+
 
 }

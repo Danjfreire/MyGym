@@ -27,6 +27,7 @@ public interface IFachada {
 	boolean atualizarManutencao(Manutencao m1) throws SQLException;
 	boolean removerManutencao(String codigo)throws SQLException;
 	boolean cadastrarEquip(Equipamento e) throws SQLException;
+	boolean cadastrarManutencao(Manutencao m1, int cod) throws SQLException;
 	
 	boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException;
 	

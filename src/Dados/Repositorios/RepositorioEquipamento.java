@@ -29,7 +29,7 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 
 	@Override
 	public boolean cadastrarEquipamento(Equipamento equipamento) throws SQLException {
-		String query = "insert into equipamento (tipo_equip, descricao, cnpj_filial) values (?, ?, ?)";
+		String query = "call inserirEquipamento(?,?,?)";
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, equipamento.getTipo_equip());
 		ps.setString(2, equipamento.getDescricao());
@@ -145,6 +145,20 @@ public class RepositorioEquipamento implements IRepositorioEquipamento {
 		String query = "call removerManutencao(?)";
 		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
 		ps.setInt(1, Integer.parseInt(codigo));
+		return executar(ps);
+	}
+
+	@Override
+	public boolean cadastrarManutencao(Manutencao m1, int cod) throws SQLException {
+		
+		String query = "call inserirManutencao(?,?,?,?,?,?)";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setDouble(1, m1.getValor());
+		ps.setString(2, m1.getProtocolo());
+		ps.setString(3, m1.getDescricao());
+		ps.setString(4, m1.getData_manutencao());
+		ps.setString(5, m1.getData_devoluca());
+		ps.setInt(6, cod);
 		return executar(ps);
 	}
 

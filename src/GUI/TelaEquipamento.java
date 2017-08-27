@@ -86,7 +86,7 @@ public class TelaEquipamento extends JFrame {
 		scrollPane_1.setViewportView(tableManun);
 
 		JButton btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setBounds(315, 502, 89, 23);
+		btnAtualizar.setBounds(427, 502, 89, 23);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.setEnabled(false);
 		btnAtualizar.addActionListener(new ActionListener() {
@@ -103,7 +103,7 @@ public class TelaEquipamento extends JFrame {
 		});
 
 		JButton btnRemover = new JButton("Remover");
-		btnRemover.setBounds(612, 502, 89, 23);
+		btnRemover.setBounds(243, 502, 89, 23);
 		contentPane.add(btnRemover);
 		btnRemover.setEnabled(false);
 		btnRemover.addActionListener(new ActionListener() {
@@ -121,10 +121,10 @@ public class TelaEquipamento extends JFrame {
 			}
 		});
 
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(315, 206, 89, 23);
-		contentPane.add(btnBuscar);
-		btnBuscar.addActionListener(new ActionListener() {
+		JButton btnHistorico = new JButton("Historico");
+		btnHistorico.setBounds(110, 207, 89, 23);
+		contentPane.add(btnHistorico);
+		btnHistorico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Equipamento e1 = equipamentos.get(tableEquip.getSelectedRow());
 
@@ -162,6 +162,34 @@ public class TelaEquipamento extends JFrame {
 				TelaMain telaMain = new TelaMain();
 				telaMain.setVisible(true);
 				dispose();
+			}
+		});
+		
+		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.setBounds(511, 207, 102, 23);
+		contentPane.add(btnCadastrar);
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroEquip tela = new TelaCadastroEquip();
+				tela.setVisible(true);
+				dispose();
+			}
+		});
+		
+		JButton btnCadastrar_1 = new JButton("Cadastrar");
+		btnCadastrar_1.setBounds(597, 502, 102, 23);
+		contentPane.add(btnCadastrar_1);
+		btnCadastrar_1.addActionListener(new ActionListener() {
+		
+			public void actionPerformed(ActionEvent e) {
+				try{
+					Equipamento e1 = equipamentos.get(tableEquip.getSelectedRow());
+					TelaCadastroManutencao tela = new TelaCadastroManutencao(e1);
+					dispose();
+					tela.setVisible(true);
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "Selecione um equipamento", "Erro", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 
