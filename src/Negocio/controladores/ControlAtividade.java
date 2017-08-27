@@ -9,6 +9,7 @@ import Dados.Repositorios.RepositorioAtividades;
 import Negocio.beans.Aluno;
 import Negocio.beans.Atividade;
 import Negocio.beans.Instrutor;
+import Negocio.beans.Plano;
 import Negocio.controlinteface.IControlAtividade;
 
 public class ControlAtividade implements IControlAtividade{
@@ -25,7 +26,7 @@ public class ControlAtividade implements IControlAtividade{
 	}
 
 	@Override
-	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
+	public List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
 		return repo.buscaInstrutorAtividade(cpfAluno);
 	}
 
@@ -35,8 +36,23 @@ public class ControlAtividade implements IControlAtividade{
 	}
 
 	@Override
-	public List<Atividade> buscaAtividadesPlano(String cpfAluno) throws SQLException {
-		return repo.buscaAtividadesPlano(cpfAluno);
+	public List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException {
+		return repo.buscaAtividadesPlano(plan);
+	}
+
+	@Override
+	public boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException {
+		return repo.cadastrarPlano(cpf, dataInicio, dataFim);
+	}
+
+	@Override
+	public boolean inserirAtividade(int codigo, String atividade) throws SQLException {
+		return repo.inserirAtividade(codigo, atividade);
+	}
+
+	@Override
+	public List<Plano> buscaPlano(String cpf) throws SQLException {
+		return repo.buscaPlano(cpf);
 	}
 
 }

@@ -8,6 +8,38 @@ create procedure atualizaAluno( in novoNome varchar(75), in NovaIdade int, in no
 			COMMIT;
 	end	\\
 
+#Plano e atividade
+
+delimiter \\
+create procedure buscaPlano(in cpf char(11))
+	begin
+		declare cod int;
+		START TRANSACTION;
+		set cod = (select codigo from contrato where cpf_aluno = cpf);
+		select * from plano where cod_contrato = cod;
+		COMMIT;
+	end \\
+
+delimiter \\ 
+create procedure inserirPlano(in cpf char(11), in dataInicio date, in dataFim date)
+	begin
+		declare contrato int;
+		START TRANSACTION;
+		set contrato = (select codigo where cpf_aluno = cpf);
+		insert into plano(cod_contrato, data_inicio, data_fim)values(contrato, dataInicio, dataFim);
+		COMMIT;
+	end \\
+
+delimiter \\
+create procedure inserirAtividade(in cod int, in atividade varchar(100))
+	begin
+		declare idativ int;
+		START TRANSACTION;
+		set idativ = (select id from atividade where descricao = atividade);
+		insert into plano_atividade(cod_plano, id_atividade) values (cod, idativ);
+		COMMIT;
+	end \\
+
 #Equipamento e manutencao
 
 delimiter \\

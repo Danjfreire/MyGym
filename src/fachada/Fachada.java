@@ -10,6 +10,7 @@ import Negocio.beans.Dependente;
 import Negocio.beans.Equipamento;
 import Negocio.beans.Instrutor;
 import Negocio.beans.Manutencao;
+import Negocio.beans.Plano;
 import Negocio.controladores.ControlAluno;
 import Negocio.controladores.ControlAtividade;
 import Negocio.controladores.ControlEquipamento;
@@ -82,7 +83,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception {
+	public List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception {
 		return controlAtividades.buscaInstrutorAtividade(cpfAluno);
 	}
 
@@ -92,8 +93,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public List<Atividade> buscaAtividadesPlano(String cpfAluno) throws SQLException {
-		return controlAtividades.buscaAtividadesPlano(cpfAluno);
+	public List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException {
+		return controlAtividades.buscaAtividadesPlano(plan);
 	}
 
 	@Override
@@ -129,6 +130,21 @@ public class Fachada implements IFachada {
 	@Override
 	public boolean cadastrarManutencao(Manutencao m1, int cod) throws SQLException {
 		return controlEquipamento.cadastrarManutencao(m1, cod);
+	}
+
+	@Override
+	public boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException {
+		return controlAtividades.cadastrarPlano(cpf, dataInicio, dataFim);
+	}
+
+	@Override
+	public boolean inserirAtividade(int codigo, String atividade) throws SQLException {
+		return controlAtividades.inserirAtividade(codigo, atividade);
+	}
+
+	@Override
+	public List<Plano> buscaPlano(String cpf) throws SQLException {
+		return controlAtividades.buscaPlano(cpf);
 	}
 
 

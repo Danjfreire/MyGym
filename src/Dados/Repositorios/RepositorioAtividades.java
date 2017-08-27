@@ -12,6 +12,7 @@ import Dados.RepoInterfaces.IRepositorioAtividades;
 import Negocio.beans.Aluno;
 import Negocio.beans.Atividade;
 import Negocio.beans.Instrutor;
+import Negocio.beans.Plano;
 
 public class RepositorioAtividades implements IRepositorioAtividades {
 
@@ -26,7 +27,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	}
 
 	@Override
-	public Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
+	public List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
 
 		String query = "select F.cpf, F.nome, F.sexo, F.data_contrato, F.salario, F.cnpj_filial, I.licenca "
 				+ "from funcionario as F, instrutor as I, faz_atividade as FA, aluno as A "
@@ -35,10 +36,10 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, cpfAluno);
 		ResultSet rs = ps.executeQuery();
-		Instrutor i1 = null;
+		List<Instrutor> i1 = new ArrayList<>();
 
 		while (rs.next())
-			i1 = preencherIntrutor(rs);
+			i1.add(preencherIntrutor(rs));
 
 		ps.close();
 		rs.close();
@@ -91,16 +92,19 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	}
 
 	@Override
-	public List<Atividade> buscaAtividadesPlano(String cpfAluno) throws SQLException {
+	public List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException {
 
 		List<Atividade> resultado = new ArrayList<Atividade>();
-		String query = "select AT.descricao, AT.valor, AT.id "
-				+ "from atividade as AT, plano_atividade as PA, plano as P, contrato as C, aluno as A"
-				+ " where A.cpf = C.cpf_aluno and C.codigo = P.cod_contrato and P.codigo = PA.cod_plano and	"
-				+ "PA.id_atividade = AT.id and A.cpf = ?";
-
+//		String query = "select AT.descricao, AT.valor, AT.id "
+//				+ "from atividade as AT, plano_atividade as PA, plano as P, contrato as C, aluno as A"
+//				+ " where A.cpf = C.cpf_aluno and C.codigo = P.cod_contrato and P.codigo = PA.cod_plano and	"
+//				+ "PA.id_atividade = AT.id and A.cpf = ?";
+		
+		String query = "select AT.descricao, AT.valor, AT.id from atividade as AT, plano_atividade as PA, plano as P "
+				+ "where P.codigo = PA.cod_plano and PA.id_atividade = AT.id and P.codigo = ?;";
+		
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
-		ps.setString(1, cpfAluno);
+		ps.setInt(1, plan.getCod_contrato());
 		ResultSet rs = ps.executeQuery();
 		Atividade a1 = null;
 
@@ -123,6 +127,69 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 			throw e;
 		}
 		return a1;
+	}
+
+	@Override
+	public boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException {
+		String query = "call inserirPlano(?,?,?);";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setString(1, cpf);
+		ps.setString(2, dataInicio);
+		ps.setString(3, dataFim);
+		
+		
+		return executar(ps);
+	}
+	
+	public boolean executar(PreparedStatement ps) throws SQLException {
+		boolean result;
+
+		if (ps.execute())
+			result = true;
+		else
+			result = false;
+
+		ps.close();
+		//System.out.println("Retornou " + result);
+		return result;
+	}
+
+	@Override
+	public boolean inserirAtividade(int codigo, String atividade) throws SQLException {
+		String query = "call inserirAtividade(?,?)";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setInt(1, codigo);
+		ps.setString(2, atividade);
+		
+		return executar(ps);
+	}
+
+	@Override
+	public List<Plano> buscaPlano(String cpf) throws SQLException {
+		
+		String query = "call buscaPlano(?)";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setString(1, cpf);
+		ResultSet rs = ps.executeQuery();
+		List<Plano> planos = new ArrayList<>();
+		
+		while(rs.next()){
+			Plano p1 = preencherPlano(rs);
+			planos.add(p1);
+		}
+		
+		return planos;
+	}
+
+	private Plano preencherPlano(ResultSet rs) throws SQLException{
+		Plano p1;
+		try {
+			p1 = new Plano(rs.getInt("codigo"), rs.getString("data_inicio"), rs.getString("data_fim"), rs.getInt("cod_contrato"), rs.getDouble("valor_total"));
+		} catch (SQLException e) {
+			throw e;
+		}
+		return p1;
+		
 	}
 
 }

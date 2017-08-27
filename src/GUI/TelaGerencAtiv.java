@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import Negocio.beans.Aluno;
 import Negocio.beans.Atividade;
 import Negocio.beans.Instrutor;
+import Negocio.beans.Plano;
 import fachada.Fachada;
 
 public class TelaGerencAtiv extends JFrame {
@@ -28,9 +30,9 @@ public class TelaGerencAtiv extends JFrame {
 	private JTextField textCPFBusca;
 	private JTextField textNomeAluno;
 	private JTextField textEnderecoAluno;
-	private JTextField textNomeInstrutor;
-	private JTextField textCPFInstrutor;
 	private JTable table;
+	private JTable table_1;
+	List<Plano> planos;
 
 	/**
 	 * Launch the application.
@@ -101,41 +103,68 @@ public class TelaGerencAtiv extends JFrame {
 		textEnderecoAluno.setColumns(10);
 		textEnderecoAluno.setEditable(false);
 
-		JLabel lblInstrutor = new JLabel("Instrutor");
-		lblInstrutor.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblInstrutor.setBounds(100, 259, 89, 14);
-		contentPane.add(lblInstrutor);
-
-		JLabel lblNome_1 = new JLabel("Nome");
-		lblNome_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNome_1.setBounds(10, 298, 46, 14);
-		contentPane.add(lblNome_1);
-
-		textNomeInstrutor = new JTextField();
-		textNomeInstrutor.setBounds(84, 297, 196, 20);
-		contentPane.add(textNomeInstrutor);
-		textNomeInstrutor.setColumns(10);
-		textNomeInstrutor.setEditable(false);
-
-		JLabel lblNewLabel_1 = new JLabel("CPF");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(10, 341, 46, 14);
-		contentPane.add(lblNewLabel_1);
-
-		textCPFInstrutor = new JTextField();
-		textCPFInstrutor.setBounds(84, 340, 196, 20);
-		contentPane.add(textCPFInstrutor);
-		textCPFInstrutor.setColumns(10);
-		textCPFInstrutor.setEditable(false);
-
 		JLabel lblPlano = new JLabel("Plano");
 		lblPlano.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPlano.setBounds(546, 109, 46, 14);
+		lblPlano.setBounds(569, 33, 46, 14);
 		contentPane.add(lblPlano);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(420, 151, 317, 162);
+		scrollPane.setBounds(432, 58, 317, 89);
 		contentPane.add(scrollPane);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(432, 267, 317, 162);
+		contentPane.add(scrollPane_1);
+		
+		JButton btnExibir = new JButton("Exibir");
+		btnExibir.setBounds(552, 181, 89, 23);
+		contentPane.add(btnExibir);
+		btnExibir.setEnabled(false);
+		btnExibir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Plano p1 = planos.get(table.getSelectedRow());
+					List<Atividade> atividades = Fachada.getInstance().buscaAtividadesPlano(p1);
+					
+					table_1 = new JTable();
+					table_1.setBounds(432, 267, 317, 162);
+					contentPane.add(table_1);
+					scrollPane_1.setViewportView(table_1);
+					DefaultTableModel modelo = new DefaultTableModel();
+					table_1.setModel(modelo);
+					modelo.addColumn("Atividade");
+					modelo.addColumn("Valor");
+					
+					List<Instrutor> instrutores = Fachada.getInstance().buscaInstrutorAtividade(textCPFBusca.getText());
+					
+					for (int i = 0; i< atividades.size(); i++) {
+						modelo.addRow(new Object[]{atividades.get(i).getDescricao()});
+					}
+					
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}catch(Exception ex1){
+					ex1.printStackTrace();
+					//JOptionPane.showMessageDialog(null, ex1.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+
+
+
+		JButton btnNovoPlano = new JButton("Novo plano");
+		btnNovoPlano.setBounds(120, 263, 106, 39);
+		contentPane.add(btnNovoPlano);
+
+		JButton btnRemover = new JButton("Remover");
+		btnRemover.setBounds(432, 493, 106, 39);
+		contentPane.add(btnRemover);
+		btnRemover.setEnabled(false);
+
+		JButton btnNovaAtividade = new JButton("Nova atividade");
+		btnNovaAtividade.setBounds(643, 493, 106, 39);
+		contentPane.add(btnNovaAtividade);
+		btnNovaAtividade.setEnabled(false);
 
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(251, 56, 89, 23);
@@ -143,40 +172,39 @@ public class TelaGerencAtiv extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Fachada.getInstance().conectar("gerente", "senha1");
-					if(textCPFBusca.getText().length() <= 0) {
+					if (textCPFBusca.getText().length() <= 0) {
 						JOptionPane.showMessageDialog(null, "CPF inválido");
 					}
 					Aluno a1 = Fachada.getInstance().buscaAlunoAtividade(textCPFBusca.getText());
-					Instrutor i1 = Fachada.getInstance().buscaInstrutorAtividade(textCPFBusca.getText());
-					List<Atividade> atividades = Fachada.getInstance().buscaAtividadesPlano(textCPFBusca.getText());
+					// Instrutor i1 =
+					// Fachada.getInstance().buscaInstrutorAtividade(textCPFBusca.getText());
+					planos = Fachada.getInstance().buscaPlano(textCPFBusca.getText());
 
 					textNomeAluno.setText(a1.getNome());
 					textEnderecoAluno.setText(a1.getEndereco());
-					textCPFInstrutor.setText(i1.getCpf());
-					textNomeInstrutor.setText(i1.getNome());
 
 					table = new JTable();
 					DefaultTableModel modelo = new DefaultTableModel();
 					table.setModel(modelo);
-					modelo.addColumn("Atividade");
-					modelo.addColumn("Valor");
+					modelo.addColumn("Codigo");
+					modelo.addColumn("Data inicio");
+					modelo.addColumn("Data fim");
 					scrollPane.setViewportView(table);
 
-					for (Atividade atividade : atividades) {
-						modelo.addRow(new Object[] { atividade.getDescricao(), atividade.getValor() });
+					for (Plano plan : planos) {
+						modelo.addRow(new Object[] { plan.getCodigo(), plan.getData_inicio(), plan.getData_fim() });
 					}
+					btnExibir.setEnabled(true);
 
 				} catch (Exception excep) {
-					//excep.printStackTrace();
-					 JOptionPane.showMessageDialog(null, excep.getMessage(),
-					 "ERRO", JOptionPane.ERROR_MESSAGE);
+					// excep.printStackTrace();
+					JOptionPane.showMessageDialog(null, excep.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 
 		JButton btnVoltar = new JButton("Voltar");
-		btnVoltar.setBounds(84, 488, 89, 23);
+		btnVoltar.setBounds(120, 493, 106, 39);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,5 +213,11 @@ public class TelaGerencAtiv extends JFrame {
 				dispose();
 			}
 		});
+
+		JLabel lblAtividades_1 = new JLabel("Atividades");
+		lblAtividades_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblAtividades_1.setBounds(552, 230, 89, 14);
+		contentPane.add(lblAtividades_1);
+
 	}
 }

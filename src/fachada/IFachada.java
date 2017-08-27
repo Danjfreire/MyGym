@@ -9,6 +9,7 @@ import Negocio.beans.Dependente;
 import Negocio.beans.Equipamento;
 import Negocio.beans.Instrutor;
 import Negocio.beans.Manutencao;
+import Negocio.beans.Plano;
 
 public interface IFachada {
 
@@ -18,9 +19,12 @@ public interface IFachada {
 	boolean CadastrarDependente(Dependente dependente)throws SQLException;
 	boolean removerAluno(String parametro) throws SQLException;
 	
-	Instrutor buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception;
+	List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception;
 	Aluno buscaAlunoAtividade(String cpfAluno)throws SQLException,Exception;
-	List<Atividade> buscaAtividadesPlano(String cpfAluno) throws SQLException;
+	List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException;
+	boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException;
+	boolean inserirAtividade(int codigo, String atividade) throws SQLException;
+	List<Plano> buscaPlano(String cpf) throws SQLException;
 	
 	List<Equipamento> buscaEquip(Equipamento e) throws SQLException;
 	List<Manutencao> buscaManutencao(String idEquip)throws SQLException;
