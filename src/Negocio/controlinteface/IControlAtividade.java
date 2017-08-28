@@ -12,11 +12,12 @@ import Negocio.beans.Plano;
 public interface IControlAtividade {
 
 	void Conectar(Connection conexao)throws SQLException;
-	List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception;
+	Instrutor buscaInstrutorAtividade(int codPlano, String atividade) throws SQLException,Exception;
 	Aluno buscaAlunoAtividade(String cpfAluno)throws SQLException, Exception;
 	List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException;
 	boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException;
 	boolean inserirAtividade(int codigo, String atividade) throws SQLException;
 	List<Plano> buscaPlano(String cpf) throws SQLException;
+	boolean removerAtividadePlano(Atividade a1) throws SQLException;
 	
 }

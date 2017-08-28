@@ -33,6 +33,8 @@ public class TelaGerencAtiv extends JFrame {
 	private JTable table;
 	private JTable table_1;
 	List<Plano> planos;
+	List<Atividade> atividades;
+	Plano planoAtual;
 
 	/**
 	 * Launch the application.
@@ -111,11 +113,45 @@ public class TelaGerencAtiv extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(432, 58, 317, 89);
 		contentPane.add(scrollPane);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(432, 267, 317, 162);
 		contentPane.add(scrollPane_1);
 		
+		JButton btnRemover = new JButton("Remover");
+		btnRemover.setBounds(432, 493, 106, 39);
+		contentPane.add(btnRemover);
+		btnRemover.setEnabled(false);
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					Atividade a1 = atividades.get(table_1.getSelectedRow());
+					Fachada.getInstance().removerAtividadePlano(a1);
+					JOptionPane.showMessageDialog(null, "Atividade removida com sucesso");
+				}catch(SQLException ex){
+					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+				}catch(Exception ex1){
+					JOptionPane.showMessageDialog(null, "Selecione uma atividade", "Erro", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+		});
+
+		JButton btnNovaAtividade = new JButton("Nova atividade");
+		btnNovaAtividade.setBounds(643, 493, 106, 39);
+		contentPane.add(btnNovaAtividade);
+		btnNovaAtividade.setEnabled(false);
+		btnNovaAtividade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					TelaCadastroAtividade tela = new TelaCadastroAtividade(planoAtual);
+					tela.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
 		JButton btnExibir = new JButton("Exibir");
 		btnExibir.setBounds(552, 181, 89, 23);
 		contentPane.add(btnExibir);
@@ -124,8 +160,9 @@ public class TelaGerencAtiv extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					Plano p1 = planos.get(table.getSelectedRow());
-					List<Atividade> atividades = Fachada.getInstance().buscaAtividadesPlano(p1);
-					
+					planoAtual = p1;
+					atividades = Fachada.getInstance().buscaAtividadesPlano(p1);
+
 					table_1 = new JTable();
 					table_1.setBounds(432, 267, 317, 162);
 					contentPane.add(table_1);
@@ -133,38 +170,38 @@ public class TelaGerencAtiv extends JFrame {
 					DefaultTableModel modelo = new DefaultTableModel();
 					table_1.setModel(modelo);
 					modelo.addColumn("Atividade");
-					modelo.addColumn("Valor");
+					modelo.addColumn("Instrutor");
 					
-					List<Instrutor> instrutores = Fachada.getInstance().buscaInstrutorAtividade(textCPFBusca.getText());
-					
-					for (int i = 0; i< atividades.size(); i++) {
-						modelo.addRow(new Object[]{atividades.get(i).getDescricao()});
+					btnRemover.setEnabled(true);
+					btnNovaAtividade.setEnabled(true);
+
+					for (int i = 0; i < atividades.size(); i++) {
+						Instrutor i1 = Fachada.getInstance().buscaInstrutorAtividade(p1.getCodigo(),
+								atividades.get(i).getDescricao());
+						if (i1 != null)
+							modelo.addRow(new Object[] { atividades.get(i).getDescricao(), i1.getNome() });
 					}
-					
+
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}catch(Exception ex1){
-					ex1.printStackTrace();
-					//JOptionPane.showMessageDialog(null, ex1.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+				} catch (Exception ex1) {
+					//ex1.printStackTrace();
+					 JOptionPane.showMessageDialog(null, ex1.getMessage(),
+					 "Erro", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
 
-
-
 		JButton btnNovoPlano = new JButton("Novo plano");
 		btnNovoPlano.setBounds(120, 263, 106, 39);
 		contentPane.add(btnNovoPlano);
-
-		JButton btnRemover = new JButton("Remover");
-		btnRemover.setBounds(432, 493, 106, 39);
-		contentPane.add(btnRemover);
-		btnRemover.setEnabled(false);
-
-		JButton btnNovaAtividade = new JButton("Nova atividade");
-		btnNovaAtividade.setBounds(643, 493, 106, 39);
-		contentPane.add(btnNovaAtividade);
-		btnNovaAtividade.setEnabled(false);
+		btnNovoPlano.setEnabled(false);
+		btnNovoPlano.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaCadastrarPlano tela = new TelaCadastrarPlano(textCPFBusca.getText());
+				tela.setVisible(true);
+			}
+		});
 
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(251, 56, 89, 23);
@@ -172,7 +209,7 @@ public class TelaGerencAtiv extends JFrame {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textCPFBusca.getText().length() <= 0) {
+					if (textCPFBusca.getText().length() < 11 ) {
 						JOptionPane.showMessageDialog(null, "CPF inválido");
 					}
 					Aluno a1 = Fachada.getInstance().buscaAlunoAtividade(textCPFBusca.getText());
@@ -195,9 +232,10 @@ public class TelaGerencAtiv extends JFrame {
 						modelo.addRow(new Object[] { plan.getCodigo(), plan.getData_inicio(), plan.getData_fim() });
 					}
 					btnExibir.setEnabled(true);
+					btnNovoPlano.setEnabled(true);
 
 				} catch (Exception excep) {
-					// excep.printStackTrace();
+					excep.printStackTrace();
 					JOptionPane.showMessageDialog(null, excep.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
 				}
 			}

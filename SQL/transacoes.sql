@@ -31,12 +31,22 @@ create procedure inserirPlano(in cpf char(11), in dataInicio date, in dataFim da
 	end \\
 
 delimiter \\
-create procedure inserirAtividade(in cod int, in atividade varchar(100))
+create procedure inserirAtividade(in cod int, in atividade varchar(100),preco decimal(10,2))
 	begin
 		declare idativ int;
 		START TRANSACTION;
-		set idativ = (select id from atividade where descricao = atividade);
+		insert into atividade(valor, atividade) values (preco, atividade);
 		insert into plano_atividade(cod_plano, id_atividade) values (cod, idativ);
+		COMMIT;
+	end \\
+
+delimiter \\
+create procedure removerAtividade(in idAtiv int)
+	begin
+		START TRANSACTION;
+		delete from atividade where id = idativ;
+		delete from plano_atividade where id_atividade = idAtiv;
+		delete from faz_Atividade where id_atividade = idAtiv;
 		COMMIT;
 	end \\
 

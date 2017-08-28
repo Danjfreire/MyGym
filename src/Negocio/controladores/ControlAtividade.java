@@ -26,8 +26,8 @@ public class ControlAtividade implements IControlAtividade{
 	}
 
 	@Override
-	public List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
-		return repo.buscaInstrutorAtividade(cpfAluno);
+	public Instrutor buscaInstrutorAtividade(int codPlano, String atividade) throws SQLException, Exception {
+		return repo.buscaInstrutorAtividade(codPlano, atividade);
 	}
 
 	@Override
@@ -53,6 +53,11 @@ public class ControlAtividade implements IControlAtividade{
 	@Override
 	public List<Plano> buscaPlano(String cpf) throws SQLException {
 		return repo.buscaPlano(cpf);
+	}
+
+	@Override
+	public boolean removerAtividadePlano(Atividade a1) throws SQLException {
+		return repo.removerAtividadePlano(a1);
 	}
 
 }

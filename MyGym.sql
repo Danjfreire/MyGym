@@ -254,9 +254,11 @@ CREATE TABLE faz_atividade(
 cpf_instrutor char(11) not null,
 cpf_aluno char(11) not null,
 data_atividade date not null,
-primary key(cpf_instrutor,cpf_aluno,data_atividade),
+id_atividade int not null,
+primary key(cpf_instrutor,cpf_aluno,id_atividade),
 foreign key(cpf_instrutor) references instrutor(cpf),
-foreign key(cpf_aluno) references aluno(cpf)
+foreign key(cpf_aluno) references aluno(cpf),
+foreign key(id_atividade) references atividade(id)
 );
 
 CREATE TABLE exame(

@@ -7,6 +7,7 @@ import Negocio.beans.Aluno;
 import Negocio.beans.Atividade;
 import Negocio.beans.Dependente;
 import Negocio.beans.Equipamento;
+import Negocio.beans.Especialidade;
 import Negocio.beans.Instrutor;
 import Negocio.beans.Manutencao;
 import Negocio.beans.Plano;
@@ -19,12 +20,13 @@ public interface IFachada {
 	boolean CadastrarDependente(Dependente dependente)throws SQLException;
 	boolean removerAluno(String parametro) throws SQLException;
 	
-	List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException,Exception;
+	Instrutor buscaInstrutorAtividade(int codPlano, String atividade) throws SQLException,Exception;
 	Aluno buscaAlunoAtividade(String cpfAluno)throws SQLException,Exception;
 	List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException;
 	boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException;
 	boolean inserirAtividade(int codigo, String atividade) throws SQLException;
 	List<Plano> buscaPlano(String cpf) throws SQLException;
+	boolean removerAtividadePlano(Atividade a1) throws SQLException;
 	
 	List<Equipamento> buscaEquip(Equipamento e) throws SQLException;
 	List<Manutencao> buscaManutencao(String idEquip)throws SQLException;
@@ -34,6 +36,9 @@ public interface IFachada {
 	boolean cadastrarManutencao(Manutencao m1, int cod) throws SQLException;
 	
 	boolean cadastrarInstrutor(Instrutor instrutor) throws SQLException;
+	
+	boolean cadastrarEspecialidade(Especialidade especialidade) throws SQLException;
+	List<Instrutor>buscarInstrutores(Especialidade especialidade) throws SQLException, Exception;
 	
 	void conectar(String user, String senha)throws Exception;
 }
