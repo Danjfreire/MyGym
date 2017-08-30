@@ -87,7 +87,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 		try {
 			a1 = new Aluno(rs.getString("cpf"), rs.getString("nome"), Integer.parseInt(rs.getString("idade")),
 					rs.getString("endereco"), rs.getString("data_nasc"),
-					Integer.parseInt(rs.getString("regularizado")));
+					Integer.parseInt(rs.getString("regularizado")),null);
 		} catch (SQLException e) {
 			throw e;
 		}

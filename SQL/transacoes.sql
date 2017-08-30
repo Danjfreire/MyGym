@@ -25,7 +25,7 @@ create procedure inserirPlano(in cpf char(11), in dataInicio date, in dataFim da
 	begin
 		declare contrato int;
 		START TRANSACTION;
-		set contrato = (select codigo where cpf_aluno = cpf);
+		set contrato = (select codigo from contrato where cpf_aluno = cpf);
 		insert into plano(cod_contrato, data_inicio, data_fim)values(contrato, dataInicio, dataFim);
 		COMMIT;
 	end \\

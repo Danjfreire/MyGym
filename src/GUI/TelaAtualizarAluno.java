@@ -4,9 +4,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,6 +35,7 @@ public class TelaAtualizarAluno extends JFrame {
 	private Aluno atual;
 	private JButton btnPrevious;
 	private JButton btnNext;
+	JLabel foto;
 
 	/**
 	 * Launch the application.
@@ -125,6 +130,10 @@ public class TelaAtualizarAluno extends JFrame {
 		textIdade.setColumns(10);
 		//textIdade.setText(String.valueOf(atual.getIdade()));
 		
+		foto = new JLabel("");
+		foto.setBounds(465, 59, 207, 174);
+		contentPane.add(foto);
+		
 		JButton btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnAtualizar.setBounds(572, 399, 110, 35);
@@ -133,7 +142,7 @@ public class TelaAtualizarAluno extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Aluno a1 = new Aluno(textCPF.getText(), textNome.getText(), Integer.parseInt(textIdade.getText()),
-							textEndereco.getText(), textDataNasc.getText(), 1);
+							textEndereco.getText(), textDataNasc.getText(), 1,null);
 					if (!Fachada.getInstance().atualizarAluno(a1)) {
 						JOptionPane.showMessageDialog(null, "Atualização efetuada com sucesso");
 					}
@@ -202,11 +211,17 @@ public class TelaAtualizarAluno extends JFrame {
 	}
 	
 	void preencherCampos(Aluno a1){
+		try{
 		textCPF.setText(a1.getCpf());
 		textNome.setText(a1.getNome());
 		textEndereco.setText(a1.getEndereco());
 		textDataNasc.setText(a1.getData_nasc());
 		textIdade.setText(String.valueOf(a1.getIdade()));
+		File imagem = a1.getFoto();
+		BufferedImage ibage = ImageIO.read(imagem);
+		BufferedImage img = new BufferedImage(207, 174, BufferedImage.TYPE_INT_RGB);
+		img.getGraphics().drawImage(ibage, 0, 0, 207, 174, null);
+		foto.setIcon(new ImageIcon(img));
 		
 		if (indice == resultado.size() - 1)
 			btnNext.setEnabled(false);
@@ -217,6 +232,9 @@ public class TelaAtualizarAluno extends JFrame {
 			btnPrevious.setEnabled(false);
 		else
 			btnPrevious.setEnabled(true);
+		}catch(Exception ex){
+			
+		}
 		
 		
 	}

@@ -4,20 +4,28 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.SQLException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Negocio.beans.Aluno;
 import Negocio.beans.Dependente;
 import fachada.Fachada;
-import javax.swing.JCheckBox;
 
 public class TelaCadastroAluno extends JFrame {
 
@@ -27,6 +35,7 @@ public class TelaCadastroAluno extends JFrame {
 	private JTextField textEndereco;
 	private JTextField textData;
 	private JTextField textIdade;
+	private File image;
 
 	/**
 	 * Launch the application.
@@ -110,6 +119,33 @@ public class TelaCadastroAluno extends JFrame {
 		textIdade.setBounds(237, 296, 46, 20);
 		contentPane.add(textIdade);
 		textIdade.setColumns(10);
+		
+		JLabel imagem = new JLabel("");
+		imagem.setBounds(456, 68, 209, 217);
+		contentPane.add(imagem);
+		
+		JButton btnFoto = new JButton("Foto");
+		btnFoto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					JFileChooser chooser = new JFileChooser();
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
+					chooser.setFileFilter(filter);
+					chooser.showOpenDialog(null);
+					image = new File(chooser.getSelectedFile().getAbsolutePath());
+					BufferedImage ibage = ImageIO.read(image);
+					BufferedImage img = new BufferedImage(207, 174, BufferedImage.TYPE_INT_RGB);
+					img.getGraphics().drawImage(ibage, 0, 0, 207, 174, null);
+					imagem.setIcon(new ImageIcon(img));
+					
+					
+				} catch (Exception ex) {
+
+				}
+			}
+		});
+		btnFoto.setBounds(524, 307, 89, 23);
+		contentPane.add(btnFoto);
 
 		JCheckBox chckbxDependente = new JCheckBox("Dependente");
 		chckbxDependente.setBounds(137, 95, 97, 23);
@@ -120,9 +156,11 @@ public class TelaCadastroAluno extends JFrame {
 				if (chckbxDependente.isSelected()) {
 					textEndereco.setEnabled(false);
 					textIdade.setEnabled(false);
+					btnFoto.setEnabled(false);
 				} else {
 					textEndereco.setEnabled(true);
 					textIdade.setEnabled(true);
+					btnFoto.setEnabled(true);
 				}
 
 			}
@@ -135,8 +173,9 @@ public class TelaCadastroAluno extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (!chckbxDependente.isSelected()) {
-						Aluno a1 = new Aluno(textCPF.getText(), textNome.getText(), Integer.parseInt(textIdade.getText()),
-								textEndereco.getText(), textData.getText(), 1);
+						//InputStream foto = new FileInputStream(image);
+						Aluno a1 = new Aluno(textCPF.getText(), textNome.getText(),
+								Integer.parseInt(textIdade.getText()), textEndereco.getText(), textData.getText(), 1,image);
 						Fachada.getInstance().CadastrarAluno(a1);
 					} else {
 						Dependente d1 = new Dependente(textCPF.getText(), textNome.getText(), textData.getText());

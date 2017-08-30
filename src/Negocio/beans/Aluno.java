@@ -1,5 +1,8 @@
 package Negocio.beans;
 
+import java.io.File;
+import java.io.FileInputStream;
+
 public class Aluno {
 
 	private String cpf;
@@ -8,8 +11,9 @@ public class Aluno {
 	private String endereco;
 	private String data_nasc;
 	private int regularizado;
+	File foto;
 
-	public Aluno(String cpf, String nome, int idade, String endereco, String data_nasc, int regularizado)
+	public Aluno(String cpf, String nome, int idade, String endereco, String data_nasc, int regularizado, File foto)
 			throws Exception {
 		super();
 		checaCPF(cpf);
@@ -18,6 +22,11 @@ public class Aluno {
 		this.endereco = endereco;
 		this.data_nasc = data_nasc;
 		this.regularizado = regularizado;
+		this.foto = foto;
+	}
+
+	public File getFoto() {
+		return foto;
 	}
 
 	void checaCPF(String cpf) throws Exception{
