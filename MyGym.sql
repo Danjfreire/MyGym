@@ -29,7 +29,7 @@ descricao varchar(100),
 cnpj_filial char(14) not null,
 primary key(codigo_equip),
 foreign key(cnpj_filial) references filial(cnpj_filial)
-);
+)ENGINE = innodb;
 
 CREATE TABLE manutencao(
 cod_manutencao int not null auto_increment,
@@ -40,7 +40,7 @@ data_manutencao date,
 data_devolucao date,
 primary key(cod_manutencao),
 CHECK(data_manutencao <= data_devolucao)
-);
+)ENGINE = innodb;
 
 CREATE TABLE sofreu_manutencao(
 cod_equip int not null,
@@ -49,7 +49,7 @@ data_manutencao date,
 primary key (cod_equip, cod_manutencao, data_manutencao),
 foreign key (cod_equip) references equipamento(codigo_equip),
 foreign key (cod_manutencao) references manutencao(cod_manutencao)
-);
+)ENGINE = innodb;
 
 CREATE TABLE funcionario(
 cpf char(11) not null,
@@ -149,6 +149,7 @@ idade int not null,
 endereco varchar(100),
 data_nasc date,
 regularizado boolean,
+imagem BLOB,
 primary key(cpf) 
 )ENGINE = innodb;
 
@@ -179,7 +180,7 @@ cpf_aluno char(11) not null,
 primary key (codigo),
 foreign key (cpf_aluno) references aluno(cpf),
 CHECK(data_fim > data_inicio) 
-);
+)ENGINE = innodb;
 
 CREATE TABLE plano(
 codigo int not null auto_increment,
@@ -190,7 +191,7 @@ cod_contrato int not null,
 primary key(codigo),
 foreign key(cod_contrato)references contrato(codigo),
 CHECK(data_fim > data_inicio)
-);
+)ENGINE = innodb;
 
 CREATE TABLE fatura(
 codigo int not null auto_increment,
@@ -226,7 +227,7 @@ id int not null auto_increment,
 valor decimal(10,2) not null,
 descricao varchar(100),
 primary key(id)
-);
+)ENGINE = innodb;
 
 CREATE TABLE horario_atividade(
 id_atividade int not null,
@@ -248,7 +249,7 @@ id_atividade int not null,
 primary key(cod_plano, id_atividade),
 foreign key(cod_plano) references plano(codigo),
 foreign key(id_atividade) references atividade(id)  
-);
+)ENGINE = innodb;
 
 CREATE TABLE faz_atividade(
 cpf_instrutor char(11) not null,
@@ -259,7 +260,7 @@ primary key(cpf_instrutor,cpf_aluno,id_atividade),
 foreign key(cpf_instrutor) references instrutor(cpf),
 foreign key(cpf_aluno) references aluno(cpf),
 foreign key(id_atividade) references atividade(id)
-);
+)ENGINE = innodb;
 
 CREATE TABLE exame(
 cpf_medico char(11) not null,
