@@ -144,7 +144,7 @@ public class TelaGerencAtiv extends JFrame {
 		btnNovaAtividade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					TelaCadastroAtividade tela = new TelaCadastroAtividade(planoAtual);
+					TelaCadastroAtividade tela = new TelaCadastroAtividade(planoAtual, textCPFBusca.getText());
 					tela.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -144,8 +144,8 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public boolean inserirAtividade(int codigo, String atividade) throws SQLException {
-		return controlAtividades.inserirAtividade(codigo, atividade);
+	public boolean inserirAtividade(int codigo, String atividade, String cpf_aluno, String cpf_instrutor) throws SQLException {
+		return controlAtividades.inserirAtividade(codigo, atividade, cpf_aluno, cpf_instrutor);
 	}
 
 	@Override

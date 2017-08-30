@@ -16,7 +16,7 @@ public interface IControlAtividade {
 	Aluno buscaAlunoAtividade(String cpfAluno)throws SQLException, Exception;
 	List<Atividade> buscaAtividadesPlano(Plano plan) throws SQLException;
 	boolean cadastrarPlano(String cpf, String dataInicio, String dataFim) throws SQLException;
-	boolean inserirAtividade(int codigo, String atividade) throws SQLException;
+	boolean inserirAtividade(int codigo, String atividade, String cpf_aluno,String cpf_instrutor) throws SQLException;
 	List<Plano> buscaPlano(String cpf) throws SQLException;
 	boolean removerAtividadePlano(Atividade a1) throws SQLException;
 	

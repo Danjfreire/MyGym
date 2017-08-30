@@ -55,6 +55,7 @@ public class TelaAtualizarManutencao extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 		
 		JLabel lblCodigo = new JLabel("Codigo");
 		lblCodigo.setFont(new Font("Tahoma", Font.BOLD, 11));

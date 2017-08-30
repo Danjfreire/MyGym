@@ -44,12 +44,13 @@ public class TelaCadastroEquip extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroEquip() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 		
 		JLabel lblTipoDeEquipamento = new JLabel("Tipo de equipamento");
 		lblTipoDeEquipamento.setFont(new Font("Tahoma", Font.BOLD, 11));

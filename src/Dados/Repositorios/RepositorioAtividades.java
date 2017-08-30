@@ -27,19 +27,22 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	}
 
 	@Override
-	public List<Instrutor> buscaInstrutorAtividade(String cpfAluno) throws SQLException, Exception {
+	public Instrutor buscaInstrutorAtividade(int codPlano, String atividade) throws SQLException, Exception {
 
-		String query = "select F.cpf, F.nome, F.sexo, F.data_contrato, F.salario, F.cnpj_filial, I.licenca "
-				+ "from funcionario as F, instrutor as I, faz_atividade as FA, aluno as A "
-				+ "where I.cpf = F.cpf and F.cpf = FA.cpf_instrutor and FA.cpf_aluno = A.cpf and A.cpf = ?;";
+		String query = "select F.cpf, F.nome, F.sexo, F.data_contrato, F.salario, F.cnpj_filial, I.licenca"
+				+ " from  funcionario as F,plano as P,plano_atividade as PA, instrutor as I,"
+				+ " atividade as AT, faz_Atividade as FA where  P.codigo = ? and P.codigo = PA.cod_plano and "
+				+ "PA.id_atividade = AT.id and AT.descricao = ? and AT.id = FA.id_atividade and "
+				+ "FA.cpf_instrutor = F.cpf and F.cpf = I.cpf;";
 
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
-		ps.setString(1, cpfAluno);
+		ps.setInt(1, codPlano);
+		ps.setString(2, atividade);
 		ResultSet rs = ps.executeQuery();
-		List<Instrutor> i1 = new ArrayList<>();
+		Instrutor i1 = null;;
 
 		while (rs.next())
-			i1.add(preencherIntrutor(rs));
+			i1 = preencherIntrutor(rs);
 
 		ps.close();
 		rs.close();
@@ -63,7 +66,7 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	public Aluno buscaAlunoAtividade(String cpfAluno) throws SQLException,Exception {
 
 		String query = "select A.cpf, A.nome, A.idade, A.endereco, A.data_nasc, A.regularizado "
-				+ "from aluno as A, faz_atividade as FA " + "where A.cpf = FA.cpf_aluno and A.cpf = ?;";
+				+ "from aluno as A where A.cpf = ?;";
 
 		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(query);
 		ps.setString(1, cpfAluno);
@@ -155,11 +158,13 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 	}
 
 	@Override
-	public boolean inserirAtividade(int codigo, String atividade) throws SQLException {
-		String query = "call inserirAtividade(?,?)";
+	public boolean inserirAtividade(int codigo, String atividade, String cpf_aluno, String cpf_instrutor) throws SQLException {
+		String query = "call inserirAtividade(?,?,150.0, ?,?)";
 		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
 		ps.setInt(1, codigo);
 		ps.setString(2, atividade);
+		ps.setString(3, cpf_aluno);
+		ps.setString(4, cpf_instrutor);
 		
 		return executar(ps);
 	}
@@ -190,6 +195,16 @@ public class RepositorioAtividades implements IRepositorioAtividades {
 		}
 		return p1;
 		
+	}
+
+	@Override
+	public boolean removerAtividadePlano(Atividade a1) throws SQLException {
+		
+		String query = "call removerAtividade(?)";
+		PreparedStatement ps = (PreparedStatement)connection.prepareStatement(query);
+		ps.setInt(1, a1.getId());
+		
+		return executar(ps);
 	}
 
 }

@@ -31,12 +31,19 @@ create procedure inserirPlano(in cpf char(11), in dataInicio date, in dataFim da
 	end \\
 
 delimiter \\
-create procedure inserirAtividade(in cod int, in atividade varchar(100),preco decimal(10,2))
+create procedure inserirAtividade(in cod int, in atividade varchar(100),preco decimal(10,2), cpfAluno char(11), cpfInst char(11))
 	begin
 		declare idativ int;
+		declare data date;
 		START TRANSACTION;
-		insert into atividade(valor, atividade) values (preco, atividade);
+		insert into atividade(valor, descricao) values (preco, atividade);
+		COMMIT;
+
+		START TRANSACTION;
+		set idativ = (select MAX(id) from atividade);
 		insert into plano_atividade(cod_plano, id_atividade) values (cod, idativ);
+		set data = (select data_inicio from plano where codigo = cod);
+		insert into faz_Atividade(cpf_instrutor, cpf_aluno, data_atividade, id_atividade) values (cpfInst, cpfAluno, data, idativ);
 		COMMIT;
 	end \\
 

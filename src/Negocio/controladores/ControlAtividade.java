@@ -46,8 +46,8 @@ public class ControlAtividade implements IControlAtividade{
 	}
 
 	@Override
-	public boolean inserirAtividade(int codigo, String atividade) throws SQLException {
-		return repo.inserirAtividade(codigo, atividade);
+	public boolean inserirAtividade(int codigo, String atividade, String cpf_aluno, String cpf_instrutor) throws SQLException {
+		return repo.inserirAtividade(codigo, atividade, cpf_aluno, cpf_instrutor);
 	}
 
 	@Override

@@ -52,6 +52,7 @@ public class TelaCadastroManutencao extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
+		setResizable(false);
 		
 		JLabel lblProtocolo = new JLabel("Protocolo");
 		lblProtocolo.setFont(new Font("Tahoma", Font.BOLD, 11));
